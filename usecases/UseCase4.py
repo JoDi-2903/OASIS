@@ -48,40 +48,39 @@ class UseCase4(UseCaseInterface):
         ## Ask the user if he wants to have a cocktail with the movie
         print("May I recommend you a cocktail with the movie?")
         question_cocktail = True
+        
+        ## Give the user a cocktail recommendation
         if question_cocktail:
             print("All right. Should the cocktail contain alcohol?")
             question_alcohol = True
-            if question_alcohol:
-                print("")
-            else:
-                print("")
+            max_elements = 99 if question_alcohol else 57
+            random_element_number = random.randint(0, max_elements)
+        
+            with urllib.request.urlopen("https://www.thecocktaildb.com/api/json/v1/1/filter.php?a="+("Alcoholic" if question_alcohol else "Non_Alcoholic")) as url:
+                tcdb_data = json.load(url)
+                random_cocktail_id = tcdb_data["drinks"][random_element_number]["idDrink"]
+        
+            with urllib.request.urlopen("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="+str(random_cocktail_id)) as url:
+                tcdb_data = json.load(url)
+                random_cocktail = tcdb_data["drinks"][0]
+        
+            cocktail_ingredient = []
+            for i in range(1, 16):
+                if random_cocktail['strIngredient'+str(i)]:
+                    cocktail_ingredient.append(random_cocktail['strMeasure'+str(i)] + random_cocktail['strIngredient'+str(i)])
+                else:
+                    cocktail_ingredient_str = ', '.join(cocktail_ingredient)
+        
+                    cocktail_ingredient_str = ' and '.join(cocktail_ingredient_str.rsplit(', ', 1))
+                    break
+                
+            print(f"As cocktail of the day I recommend {random_cocktail['strDrink']}. For this you need {cocktail_ingredient_str}. Now to the preparation: {random_cocktail['strInstructions']}")
         else:
             print("Okay. Have a great movie night.")
 
     def is_triggered() -> bool:
-        pass
-
-    def tmdb_genre_to_id(genre_str) -> int:
-        genre_to_id = {
-            "Action": 28,
-            "Adventure": 12,
-            "Animation": 16,
-            "Comedy": 35,
-            "Crime": 80,
-            "Documentary": 99,
-            "Drama": 18,
-            "Family": 10751,
-            "Fantasy": 14,
-            "History": 36,
-            "Horror": 27,
-            "Music": 10402,
-            "Mystery": 9648,
-            "Romance": 10749,
-            "Science Fiction": 878,
-            "TV Movie": 10770,
-            "Thriller": 53,
-            "War": 10752,
-            "Western": 37
-        }
-
-        return genre_to_id[genre_str]
+        current_time = datetime.now().strftime("%H:%M")
+        if current_time == "20:00":
+            return True
+        else:
+            return False
