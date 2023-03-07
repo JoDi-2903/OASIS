@@ -22,13 +22,13 @@ class UseCase4(UseCaseInterface):
             news_data = json.load(url)
             tagesschau_video_url = news_data["videos"][0]["mediadata"][0]["h264s"]
 
-            media_player = vlc.MediaPlayer()
-            media_player.set_media(vlc.Media(tagesschau_video_url))
-            media_player.play()
+        media_player = vlc.MediaPlayer()
+        media_player.set_media(vlc.Media(tagesschau_video_url))
+        media_player.play()
 
-            time.sleep(5)
-            while media_player.is_playing():
-                time.sleep(2)
+        time.sleep(5)
+        while media_player.is_playing():
+            time.sleep(2)
 
         # Movie recommendation
         ## Ask the user what movie genre they are in the mood for today
@@ -42,7 +42,8 @@ class UseCase4(UseCaseInterface):
         with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key=5221e1317dbf91f51363a72bc6c98904&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(question_genre)) as url:
             tmdb_data = json.load(url)
             random_movie = tmdb_data["results"][random_element_number]
-            print(f"Good choice! From the genre {question_genre} I recommend you today the movie {random_movie['title']} released in {random_movie['release_date'][:4]}. The film currently has an average rating of {random_movie['vote_average']} with {random_movie['vote_count']} reviews. I will now give you a brief plot overview: {random_movie['overview']}")
+        
+        print(f"Good choice! From the genre {question_genre} I recommend you today the movie {random_movie['title']} released in {random_movie['release_date'][:4]}. The film currently has an average rating of {random_movie['vote_average']} with {random_movie['vote_count']} reviews. I will now give you a brief plot overview: {random_movie['overview']}")
 
         # Cocktail recommendation
         ## Ask the user if he wants to have a cocktail with the movie
@@ -53,6 +54,7 @@ class UseCase4(UseCaseInterface):
         if question_cocktail:
             print("All right. Should the cocktail contain alcohol?")
             question_alcohol = True
+
             max_elements = 99 if question_alcohol else 57
             random_element_number = random.randint(0, max_elements)
         
@@ -70,7 +72,6 @@ class UseCase4(UseCaseInterface):
                     cocktail_ingredient.append(random_cocktail['strMeasure'+str(i)] + random_cocktail['strIngredient'+str(i)])
                 else:
                     cocktail_ingredient_str = ', '.join(cocktail_ingredient)
-        
                     cocktail_ingredient_str = ' and '.join(cocktail_ingredient_str.rsplit(', ', 1))
                     break
                 
