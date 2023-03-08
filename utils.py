@@ -1,6 +1,9 @@
 import pyttsx3
 import speech_recognition as sr
 import json
+import logging
+import vlc
+import time
 
 
 class Voice():
@@ -23,8 +26,18 @@ class Voice():
             self.recognizer.dynamic_energy_threshold = True
 
     def speak(self, msg):
+        logging.info(f"Speaking: {msg}")
         self.engine.say(msg)
         self.engine.runAndWait()
+
+    def play(self, url):
+        logging.info(f"Playing: {url}")
+
+        player = vlc.MediaPlayer()
+        player.set_media(vlc.Media(url))
+        player.play()
+        time.sleep(0.5)
+        time.sleep(player.get_length()/1000)
 
     def hear(self) -> str:
         with self.mic as source:
@@ -32,4 +45,5 @@ class Voice():
                 source, timeout=5, phrase_time_limit=5)
 
         result = json.loads(self.recognizer.recognize_vosk(audio))
+        logging.info(f"Heard: {result['text']}")
         return result['text']

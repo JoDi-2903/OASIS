@@ -1,9 +1,11 @@
-import os
 from mediator import Mediator
 
 from utils import Voice
 
+import os
 import json
+import logging
+import argparse
 
 config = {
     "name": "",
@@ -33,11 +35,33 @@ def start():
         config = json.load(fp)
     voice = Voice()
     voice.speak(f"Welcome back, {config['name']}")
+
+    voice.play(
+        "https://media.tagesschau.de/video/100s/2023/0308/TV-100s-1441.webm.h264.mp4"
+    )
+
     mediator = Mediator(voice)
     mediator.check_for_trigger()
 
 
 if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(
+        prog="OASIS - Online Assistant for Support, Information and Services"
+    )
+
+    parser.add_argument(
+        '-v',
+        '--verbose',
+        dest='verbose',
+        help='Logging the spoken and heard text',
+        action='store_true'
+    )
+
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.basicConfig(encoding='utf-8', level=logging.INFO)
 
     # Check if configuration file exists
     if os.path.exists('config.json'):

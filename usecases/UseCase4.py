@@ -5,8 +5,8 @@ class UseCase4(UseCaseInterface):
     def __init__(self, voice):
         self.voice = voice
 
-    def run() -> None:
+    def run(self) -> None:
         pass
 
-    def is_triggered() -> bool:
+    def is_triggered(self) -> bool:
         pass
