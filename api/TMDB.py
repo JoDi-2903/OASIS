@@ -7,29 +7,29 @@ class TMDB():
     def __init__(self):
         pass
 
-    def genre_to_id(genre_str) -> int:
+    def genre_to_id(question_genre) -> int:
         tmdb_genre_codes = {
-            "Action": 28,
-            "Adventure": 12,
-            "Animation": 16,
-            "Comedy": 35,
-            "Crime": 80,
-            "Documentary": 99,
-            "Drama": 18,
-            "Family": 10751,
-            "Fantasy": 14,
-            "History": 36,
-            "Horror": 27,
-            "Music": 10402,
-            "Mystery": 9648,
-            "Romance": 10749,
-            "Science Fiction": 878,
-            "TV Movie": 10770,
-            "Thriller": 53,
-            "War": 10752,
-            "Western": 37
+            "action": 28,
+            "adventure": 12,
+            "animation": 16,
+            "comedy": 35,
+            "crime": 80,
+            "documentary": 99,
+            "drama": 18,
+            "family": 10751,
+            "fantasy": 14,
+            "history": 36,
+            "horror": 27,
+            "music": 10402,
+            "mystery": 9648,
+            "romance": 10749,
+            "science Fiction": 878,
+            "tv movie": 10770,
+            "thriller": 53,
+            "war": 10752,
+            "western": 37
         }
-        return tmdb_genre_codes[genre_str]
+        return tmdb_genre_codes[question_genre.lower()]
     
     def recommend_random_movie(question_genre) -> dict:
         random_page_number = random.randint(1, 100)
