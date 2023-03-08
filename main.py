@@ -13,7 +13,7 @@ config = {
 def setup():
     voice = Voice()
     voice.speak(
-        "Hello I am OASIS, your new personal assistant. Before we can start, you have to answer some questions to me. Now please say your name or your designation as I should address you."
+        "Hello, I am OASIS, your new personal assistant. Before we can start, you have to answer some questions to me. Now please say your name or your designation as I should address you."
     )
     config['name'] = voice.hear()
     voice.speak(

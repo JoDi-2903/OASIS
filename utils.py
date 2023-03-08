@@ -16,10 +16,10 @@ class Voice():
 
         with self.mic as source:
             self.speak(
-                "Please wait and be quit. Calibrating your microphone..."
+                "First I need to calibrate your microphone. So please be quiet for the next 3 seconds."
             )
             # listen for 5 seconds and create the ambient noise energy level
-            self.recognizer.adjust_for_ambient_noise(source, duration=5)
+            self.recognizer.adjust_for_ambient_noise(source, duration=3)
             self.recognizer.dynamic_energy_threshold = True
 
     def speak(self, msg):
@@ -32,7 +32,4 @@ class Voice():
                 source, timeout=5, phrase_time_limit=5)
 
         result = json.loads(self.recognizer.recognize_vosk(audio))
-
-        print(result)
-        print(result['text'])
         return result['text']
