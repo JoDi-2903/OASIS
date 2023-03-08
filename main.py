@@ -34,11 +34,7 @@ def start():
     with open('config.json', 'r') as fp:
         config = json.load(fp)
     voice = Voice()
-    voice.speak(f"Welcome back, {config['name']}")
-
-    voice.play(
-        "https://media.tagesschau.de/video/100s/2023/0308/TV-100s-1441.webm.h264.mp4"
-    )
+    voice.speak(f"Welcome back, {config['name']}!")
 
     mediator = Mediator(voice)
     mediator.check_for_trigger()
