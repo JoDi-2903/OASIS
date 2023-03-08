@@ -15,7 +15,9 @@ class Voice():
         self.mic = sr.Microphone()
 
         with self.mic as source:
-            self.speak("Please wait. Calibrating microphone...")
+            self.speak(
+                "Please wait and be quit. Calibrating your microphone..."
+            )
             # listen for 5 seconds and create the ambient noise energy level
             self.recognizer.adjust_for_ambient_noise(source, duration=5)
             self.recognizer.dynamic_energy_threshold = True

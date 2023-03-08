@@ -3,17 +3,17 @@ from mediator import Mediator
 
 from utils import Voice
 
+import json
+
+config = {
+    "name": "",
+}
+
 
 def setup():
-    config = {
-        "name": "",
-    }
     voice = Voice()
     voice.speak(
-        "Hello I am OASIS, your new personal assistant. Before we can start, you have to answer some questions to me. This allows me to better adapt to your daily routine."
-    )
-    voice.speak(
-        "Now please say your name or your designation as I should address you."
+        "Hello I am OASIS, your new personal assistant. Before we can start, you have to answer some questions to me. Now please say your name or your designation as I should address you."
     )
     config['name'] = voice.hear()
     voice.speak(
@@ -21,14 +21,18 @@ def setup():
     )
 
     # TODO Further configuration and save to config.json
+    with open('config.json', 'w') as fp:
+        json.dump(config, fp)
 
     mediator = Mediator(voice)
     mediator.check_for_trigger()
 
 
 def start():
+    with open('config.json', 'r') as fp:
+        config = json.load(fp)
     voice = Voice()
-    voice.speak("Welcome")
+    voice.speak(f"Welcome back, {config['name']}")
     mediator = Mediator(voice)
     mediator.check_for_trigger()
 

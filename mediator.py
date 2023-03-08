@@ -17,11 +17,11 @@ class Mediator():
 
     def check_for_trigger(self):
         while True:
-            if self.use_case_1.is_triggered() == True:
+            if self.use_case_1.is_triggered():
                 self.use_case_1.run()
-            if self.use_case_2.is_triggered() == True:
+            if self.use_case_2.is_triggered():
                 self.use_case_2.run()
-            if self.use_case_3.is_triggered() == True:
+            if self.use_case_3.is_triggered():
                 self.use_case_3.run()
-            if self.use_case_4.is_triggered() == True:
+            if self.use_case_4.is_triggered():
                 self.use_case_4.run()
