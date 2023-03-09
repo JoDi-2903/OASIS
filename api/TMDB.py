@@ -8,6 +8,7 @@ class TMDB():
         pass
 
     def genre_to_id(question_genre) -> int:
+        # Definition of the genre codes from TMDB
         tmdb_genre_codes = {
             "action": 28,
             "adventure": 12,
@@ -29,13 +30,19 @@ class TMDB():
             "war": 10752,
             "western": 37
         }
-        return tmdb_genre_codes[question_genre.lower()]
+
+        # Detect genre from user input
+        for gnr in tmdb_genre_codes:
+            if gnr in question_genre.lower():
+                return tmdb_genre_codes[gnr]
+        # Genre could not be detected
+        return 0 
     
-    def recommend_random_movie(question_genre) -> dict:
+    def recommend_random_movie(genre_id) -> dict:
         random_page_number = random.randint(1, 100)
         random_element_number = random.randint(0, 19)
 
-        with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key=5221e1317dbf91f51363a72bc6c98904&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(TMDB.genre_to_id(question_genre))) as url:
+        with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key=5221e1317dbf91f51363a72bc6c98904&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(genre_id)) as url:
             tmdb_data = json.load(url)
             random_movie = tmdb_data["results"][random_element_number]
         
