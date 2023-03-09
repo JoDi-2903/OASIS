@@ -4,39 +4,43 @@ import urllib.request
 
 
 class TMDB():
+    # Definition of the genre codes from TMDB
+    genre_codes = {
+        "action": 28,
+        "adventure": 12,
+        "animation": 16,
+        "comedy": 35,
+        "crime": 80,
+        "documentary": 99,
+        "drama": 18,
+        "family": 10751,
+        "fantasy": 14,
+        "history": 36,
+        "horror": 27,
+        "music": 10402,
+        "mystery": 9648,
+        "romance": 10749,
+        "science Fiction": 878,
+        "tv movie": 10770,
+        "thriller": 53,
+        "war": 10752,
+        "western": 37
+    }
+
     def __init__(self):
         pass
 
     def genre_to_id(question_genre) -> int:
-        # Definition of the genre codes from TMDB
-        tmdb_genre_codes = {
-            "action": 28,
-            "adventure": 12,
-            "animation": 16,
-            "comedy": 35,
-            "crime": 80,
-            "documentary": 99,
-            "drama": 18,
-            "family": 10751,
-            "fantasy": 14,
-            "history": 36,
-            "horror": 27,
-            "music": 10402,
-            "mystery": 9648,
-            "romance": 10749,
-            "science Fiction": 878,
-            "tv movie": 10770,
-            "thriller": 53,
-            "war": 10752,
-            "western": 37
-        }
-
         # Detect genre from user input
-        for gnr in tmdb_genre_codes:
+        for gnr in TMDB.genre_codes:
             if gnr in question_genre.lower():
-                return tmdb_genre_codes[gnr]
+                return TMDB.genre_codes[gnr]
         # Genre could not be detected
         return 0 
+    
+    def id_to_genre(genre_id) -> str:
+        inverted_genre_codes = {v: k for k, v in TMDB.genre_codes.items()}
+        return inverted_genre_codes[genre_id]
     
     def recommend_random_movie(genre_id) -> dict:
         random_page_number = random.randint(1, 100)

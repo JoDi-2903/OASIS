@@ -30,9 +30,6 @@ class TheCocktailDB():
                 break
         
         return random_cocktail
-    
-    def get_cocktail_by_name() -> dict:
-        pass
 
     def input_yes_or_no(answer) -> bool:
         for str in ['yes', 'surely', 'sure', 'yea', 'yep', 'okay', 'ok', 'aye', 'fine', 'certainly', 'definitely']:

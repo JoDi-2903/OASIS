@@ -25,9 +25,14 @@ class UseCase4(UseCaseInterface):
         question_genre = self.voice.hear()
         genre_id = TMDB.genre_to_id(question_genre)
 
+        while genre_id == 0:
+            self.voice.speak("Sorry, I didn't understand that. Please repeat your choice.")
+            question_genre = self.voice.hear()
+            genre_id = TMDB.genre_to_id(question_genre)
+
         # Give the user a movie recommendation
         random_movie = TMDB.recommend_random_movie(genre_id)
-        self.voice.speak(f"Good choice! From the genre {question_genre} I recommend you today the movie {random_movie['title']} released in {random_movie['release_date'][:4]}. The film currently has an average rating of {random_movie['vote_average']} with {random_movie['vote_count']} reviews. I will now give you a brief plot overview: {random_movie['overview']}")
+        self.voice.speak(f"Good choice! From the genre {TMDB.id_to_genre(genre_id)} I recommend you today the movie {random_movie['title']} released in {random_movie['release_date'][:4]}. The film currently has an average rating of {random_movie['vote_average']} with {random_movie['vote_count']} reviews. I will now give you a brief plot overview: {random_movie['overview']}")
 
         # 03 Cocktail recommendation
         # Ask the user if he wants to have a cocktail with the movie
