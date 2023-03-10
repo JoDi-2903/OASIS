@@ -18,8 +18,16 @@ class UseCase2(UseCaseInterface):
         routine_text += self.get_fitness_exercise()
         routine_text += " Now to your health information. Do you want to hear it?"
         self.voice.speak(routine_text)
-        
-        print(routine_text)
+
+        answer_health_information = self.voice.hear()
+        if self.input_yes_or_no(answer_health_information):
+            routine_text = " Ok, here is your health status: "
+            
+        else:
+            routine_text = " I understand, the health status is skipped today. "
+        routine_text += " The routine is over, you did a great job! Enjoy your afternoon."
+
+        self.voice.speak(routine_text)
 
     def is_triggered(self) -> bool:
         pass
@@ -36,6 +44,13 @@ class UseCase2(UseCaseInterface):
         return_string = zen_quote['a'] + " once said: "
         return_string += zen_quote['q']
         return return_string
+    
+    #TODO: should be moved to util in a refactor
+    def input_yes_or_no(answer) -> bool:
+        for str in ['yes', 'surely', 'sure', 'yea', 'yep', 'okay', 'ok', 'aye', 'fine', 'certainly', 'definitely']:
+            if str in answer.lower():
+                return True
+        return False
 
 test = UseCase2()
 test.run()
