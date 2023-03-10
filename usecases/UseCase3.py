@@ -5,7 +5,10 @@ from api.SpotifyAPI import SpotifyAPI
 
 
 class UseCase3(UseCaseInterface):
-    def __init__(self):
+    def __init__(self, voice):
+        self.voice = voice
+
+    def run(self) -> None:
         pass
 
     def run(self) -> None:
