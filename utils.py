@@ -4,6 +4,7 @@ import json
 import logging
 import vlc
 import time
+import keyboard
 
 
 class Voice():
@@ -37,7 +38,12 @@ class Voice():
         player.set_media(vlc.Media(url))
         player.play()
         time.sleep(0.5)
-        time.sleep(player.get_length()/1000)
+        while player.is_playing():
+            if keyboard.read_key() == "enter":
+                break
+            time.sleep(1)
+
+        player.stop()
 
     def hear(self) -> str:
         with self.mic as source:

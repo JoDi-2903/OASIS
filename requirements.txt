@@ -7,3 +7,4 @@ SpeechRecognition
 vosk
 
 python-vlc
+keyboard
