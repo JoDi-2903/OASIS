@@ -11,8 +11,8 @@ class Voice():
     def __init__(self) -> None:
         self.engine = pyttsx3.init()
         self.engine.setProperty(
-            'voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0')
-        self.engine.setProperty('rate', 150)
+            'voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0'
+        )
 
         self.recognizer = sr.Recognizer()
         self.mic = sr.Microphone()
