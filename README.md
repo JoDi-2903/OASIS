@@ -2,9 +2,13 @@
 
 ## Requirements
 
+To install the required Python modules, the following command must be executed
+
 ```
 pip install -r requirements.txt
 ```
+
+In addition, VLC must be installed on the PC.
 
 ## SpechRecognition Model
 
