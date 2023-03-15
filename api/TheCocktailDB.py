@@ -21,8 +21,10 @@ class TheCocktailDB():
     
         cocktail_ingredient = []
         for i in range(1, 16):
-            if random_cocktail['strIngredient'+str(i)]:
+            if random_cocktail['strMeasure'+str(i)] and random_cocktail['strIngredient'+str(i)]:
                 cocktail_ingredient.append(random_cocktail['strMeasure'+str(i)] + random_cocktail['strIngredient'+str(i)])
+            elif random_cocktail['strIngredient'+str(i)]:
+                cocktail_ingredient.append(random_cocktail['strIngredient'+str(i)])
             else:
                 cocktail_ingredient_str = ', '.join(cocktail_ingredient)
                 cocktail_ingredient_str = ' and '.join(cocktail_ingredient_str.rsplit(', ', 1))
