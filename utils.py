@@ -10,6 +10,15 @@ import keyboard
 class Voice():
 
     def __init__(self) -> None:
+
+        self.array_yes = [
+            'yes', 'yeah', 'yep', 'sure', 'ok', 'okay'
+        ]
+
+        self.array_no = [
+            'no', 'nope'
+        ]
+
         self.engine = pyttsx3.init()
         self.engine.setProperty(
             'voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0'
@@ -53,3 +62,15 @@ class Voice():
         result = json.loads(self.recognizer.recognize_vosk(audio))
         logging.info(f"Heard: {result['text']}")
         return result['text']
+
+    def getUserConfirmation(self) -> bool:
+        while True:
+            user_input = self.hear()
+            if user_input in self.array_yes:
+                return True
+            elif user_input in self.array_no:
+                return False
+            else:
+                self.speak(
+                    "Sorry, either I didn't understand you or you didn't answer the question correctly."
+                )

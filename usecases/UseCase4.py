@@ -44,12 +44,11 @@ class UseCase4(UseCaseInterface):
         # 03 Cocktail recommendation
         # Ask the user if he wants to have a cocktail with the movie
         self.voice.speak("May I recommend you a cocktail with the movie?")
-        question_cocktail = TheCocktailDB.input_yes_or_no(self.voice.hear())
-
+        question_cocktail = self.voice.getUserConfirmation()
         # Give the user a cocktail recommendation
         if question_cocktail:
             self.voice.speak("All right. Should the cocktail contain alcohol?")
-            question_alcohol = TheCocktailDB.input_yes_or_no(self.voice.hear())
+            question_alcohol = self.voice.getUserConfirmation()
 
             random_cocktail = TheCocktailDB.recommend_random_cocktail(
                 question_alcohol
@@ -60,8 +59,7 @@ class UseCase4(UseCaseInterface):
             self.voice.speak("Okay. Have a great movie night.")
 
     def is_triggered(self) -> bool:
-        # current_time = datetime.now().strftime("%H:%M")
-        current_time = "20:00"
+        current_time = datetime.now().strftime("%H:%M")
         if current_time == "20:00":
             return True
         else:
