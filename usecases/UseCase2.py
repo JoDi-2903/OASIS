@@ -1,6 +1,7 @@
 from usecases.UseCaseInterface import UseCaseInterface
 from api.YogaApi import YogaApi
 from api.ZenQuotes import ZenQuotes
+from api.FitBit import FitBitApi
 
 #Use case for midday health routine, containing:
 #   Inspirational quote (https://docs.zenquotes.io/zenquotes-documentation/#call-today)
@@ -12,6 +13,7 @@ class UseCase2(UseCaseInterface):
         self.voice = voice
 
     def run(self) -> None:
+        self.get_fitness_status()
         routine_text = "Good afternoon. This is your health routine. First, your daily Zen Quote: "
         routine_text += self.get_zen_quote()
         routine_text += " We'll continue with an exercise.  "
@@ -22,7 +24,7 @@ class UseCase2(UseCaseInterface):
         answer_health_information = self.voice.hear()
         if self.input_yes_or_no(answer_health_information):
             routine_text = " Ok, here is your health status: "
-            
+            routine_text += self.get_fitness_status()
         else:
             routine_text = " I understand, the health status is skipped today. "
         routine_text += " The routine is over, you did a great job! Enjoy your afternoon."
@@ -31,6 +33,16 @@ class UseCase2(UseCaseInterface):
 
     def is_triggered(self) -> bool:
         pass
+
+    def get_fitness_status(self) -> str:
+        fitness_status = FitBitApi().get_health_status()
+        weight = self.convert_pounds_to_kg(fitness_status['bodyweight']['weight'][0]['weight'])
+        weight_goal = self.convert_pounds_to_kg(fitness_status['bodyweightgoal']['goal']['weight'])
+        weight_goal_difference = weight - weight_goal
+        return_string = "Your recent weight is " + str(weight) + ". "
+        return_string += " Your weight goal is  " + str(weight_goal) + ". "
+        return_string += " The difference between your goal and your weight is " + str(round(weight_goal_difference, 2)) + ". "
+        return return_string
 
     def get_fitness_exercise(self) -> str:
         yoga_exercise = YogaApi.get_random_yoga_exercise()
@@ -45,6 +57,9 @@ class UseCase2(UseCaseInterface):
         return_string += zen_quote['q']
         return return_string
     
+    def convert_pounds_to_kg(self, pounds) -> float:
+        return (round((pounds / 2.205), 2))
+    
     #TODO: should be moved to util in a refactor
     def input_yes_or_no(answer) -> bool:
         for str in ['yes', 'surely', 'sure', 'yea', 'yep', 'okay', 'ok', 'aye', 'fine', 'certainly', 'definitely']:
@@ -52,5 +67,5 @@ class UseCase2(UseCaseInterface):
                 return True
         return False
 
-test = UseCase2()
+test = UseCase2('test')
 test.run()
