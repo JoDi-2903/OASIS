@@ -130,3 +130,6 @@ dmypy.json
 
 # Spotify
 .cache-diepoldstr
+
+# VSCode
+.vscode/

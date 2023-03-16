@@ -1,3 +1,4 @@
+from sklearn.utils import shuffle
 import spotipy
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
@@ -35,8 +36,10 @@ class SpotifyAPI():
 
         if token:
             self.sp.trace = False
+            self.sp.shuffle(state=True)
             self.sp.start_playback(
-                device_id=None, context_uri=f'spotify:playlist:{playlist_id}'
+                device_id=None,
+                context_uri=f'spotify:playlist:{playlist_id}'
             )
             print("Playing dining playlist...")
         else:
