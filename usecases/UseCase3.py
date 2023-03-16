@@ -13,7 +13,7 @@ class UseCase3(UseCaseInterface):
     def run(self) -> None:
         self.voice.speak("Do you want to cook today?")
 
-        if self.voice.hear() == "yes":
+        if self.voice.getUserConfirmation():
             is_chosen_recipe = False
             is_init = True
             # show recipes
@@ -28,25 +28,24 @@ class UseCase3(UseCaseInterface):
 
                 self.voice.speak(
                     f"{temp_promt}: {recipe.title}. Do you want to hear the summary?")
-
-                if self.voice.hear() == "yes":
+                if self.voice.getUserConfirmation():
                     self.voice.speak(
                         "Okay, here is the summary." + recipe.summary)
 
                 self.voice.speak("Do you want to cook this one?")
-
-                if self.voice.hear() == "yes":
+                if self.voice.getUserConfirmation():
                     is_chosen_recipe = True
 
             self.voice.speak(
                 "Do you want me to open the recipe in your browser?")
-            if self.voice.hear() == "yes":
+            if self.voice.getUserConfirmation():
                 webbrowser.open_new_tab(recipe.link)
 
             self.voice.speak("Do you want to listen to music while cooking?")
-            # play spotify playlist
-            spotify = SpotifyAPI()
-            spotify.playDiningPlaylist()
+            if self.voice.getUserConfirmation():
+                # play spotify playlist
+                spotify = SpotifyAPI()
+                spotify.playDiningPlaylist()
         else:
             # show restaurants
             restaurants = TripAdvisorAPI.getRestaurantList()
@@ -61,19 +60,19 @@ class UseCase3(UseCaseInterface):
                     temp_promt = "What about "
                 self.voice.speak(temp_promt + restaurant.name +
                                  ". Do you want to hear the description?")
-                if (self.voice.hear() == "yes"):
+                if self.voice.getUserConfirmation():
                     self.voice.speak(
                         "Okay, here is the description." + restaurant.description)
 
                 self.voice.speak("Do you want to go to this restaurant?")
-                if (self.voice.hear() == "yes"):
+                if self.voice.getUserConfirmation():
                     is_chosen_restaurant = True
                     break
 
             if (is_chosen_restaurant):
                 self.voice.speak(
                     "Do you want me to open the restaurant directions in your browser?")
-                if (self.voice.hear() == "yes"):
+                if self.voice.getUserConfirmation():
                     webbrowser.open_new_tab(get_directions(restaurants[0]))
             else:
                 self.voice.speak(

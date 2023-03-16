@@ -1,7 +1,8 @@
-from sklearn.utils import shuffle
+import time
 import spotipy
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy.exceptions import SpotifyException
 
 
 class SpotifyAPI():
@@ -35,12 +36,20 @@ class SpotifyAPI():
         )
 
         if token:
-            self.sp.trace = False
-            self.sp.shuffle(state=True)
-            self.sp.start_playback(
-                device_id=None,
-                context_uri=f'spotify:playlist:{playlist_id}'
-            )
-            print("Playing dining playlist...")
+            playing = False
+            while not playing:
+                try:
+                    self.sp.trace = False
+                    self.sp.shuffle(state=True)
+                    self.sp.start_playback(
+                        device_id=None,
+                        context_uri=f'spotify:playlist:{playlist_id}'
+                    )
+                    print("Playing dining playlist...")
+                    playing = True
+                except SpotifyException:
+                    print("Open Spotify on your device and try again.")
+                    time.sleep(5)
+                    self.__init__()
         else:
             print("Can't get token for", self.USERNAME)
