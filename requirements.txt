@@ -5,3 +5,6 @@ pyttsx3
 pyaudio
 SpeechRecognition
 vosk
+
+python-vlc
+keyboard
