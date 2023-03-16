@@ -5,3 +5,7 @@ pyttsx3
 pyaudio
 SpeechRecognition
 vosk
+
+# FitBit
+cherrypy
+fitbit

@@ -7,8 +7,7 @@ import datetime
 CLIENT_ID = '23QT56'
 CLIENT_SECRET = '05ddc878df29ec251ffa5e1801abe0c5'
 
-#TODO: add cherrypy & fitbit to requirements
-
+#   using modules: fitbit and cherrypy, installed by requirements.txt
 #   health information (https://dev.fitbit.com/build/reference/web-api/developer-guide/)
 class FitBitApi():
     def __init__(self):

@@ -66,6 +66,3 @@ class UseCase2(UseCaseInterface):
             if str in answer.lower():
                 return True
         return False
-
-test = UseCase2('test')
-test.run()
