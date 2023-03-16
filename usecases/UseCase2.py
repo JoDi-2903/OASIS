@@ -1,3 +1,4 @@
+import datetime
 from usecases.UseCaseInterface import UseCaseInterface
 from api.YogaApi import YogaApi
 from api.ZenQuotes import ZenQuotes
@@ -21,8 +22,7 @@ class UseCase2(UseCaseInterface):
         routine_text += " Now to your health information. Do you want to hear it?"
         self.voice.speak(routine_text)
 
-        answer_health_information = self.voice.hear()
-        if self.input_yes_or_no(answer_health_information):
+        if self.voice.getUserConfirmation():
             routine_text = " Ok, here is your health status: "
             routine_text += self.get_fitness_status()
         else:
@@ -32,7 +32,11 @@ class UseCase2(UseCaseInterface):
         self.voice.speak(routine_text)
 
     def is_triggered(self) -> bool:
-        pass
+        current_time = datetime.now().strftime("%H:%M")
+        if current_time == "15:00":
+            return True
+        else:
+            return False
 
     def get_fitness_status(self) -> str:
         fitness_status = FitBitApi().get_health_status()
@@ -60,9 +64,3 @@ class UseCase2(UseCaseInterface):
     def convert_pounds_to_kg(self, pounds) -> float:
         return (round((pounds / 2.205), 2))
     
-    #TODO: should be moved to util in a refactor
-    def input_yes_or_no(answer) -> bool:
-        for str in ['yes', 'surely', 'sure', 'yea', 'yep', 'okay', 'ok', 'aye', 'fine', 'certainly', 'definitely']:
-            if str in answer.lower():
-                return True
-        return False

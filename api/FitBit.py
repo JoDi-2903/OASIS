@@ -14,7 +14,7 @@ class FitBitApi():
         self.authorize_with_api()
 
     def get_health_status(self) -> dict:
-        date = datetime.date(year=2023, month=3, day=16)
+        date = datetime.date.today().strftime("%Y-%m-%d")
         sleepData = self.auth2_client.sleep(date=date)
         foodData = self.auth2_client.recent_foods()
         bodyWeight = self.auth2_client.get_bodyweight()
@@ -32,6 +32,3 @@ class FitBitApi():
         ACCESS_TOKEN=str(server.fitbit.client.session.token['access_token'])
         REFRESH_TOKEN=str(server.fitbit.client.session.token['refresh_token'])
         self.auth2_client=fitbit.Fitbit(CLIENT_ID,CLIENT_SECRET,oauth2=True,access_token=ACCESS_TOKEN,refresh_token=REFRESH_TOKEN)
-
-
-#FitBitApi().get_health_status()
