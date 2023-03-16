@@ -4,15 +4,25 @@ import json
 import logging
 import vlc
 import time
+import keyboard
 
 
 class Voice():
 
     def __init__(self) -> None:
+
+        self.array_yes = [
+            'yes', 'yeah', 'yep', 'sure', 'ok', 'okay'
+        ]
+
+        self.array_no = [
+            'no', 'nope'
+        ]
+
         self.engine = pyttsx3.init()
         self.engine.setProperty(
-            'voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0')
-        self.engine.setProperty('rate', 150)
+            'voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0'
+        )
 
         self.recognizer = sr.Recognizer()
         self.mic = sr.Microphone()
@@ -37,7 +47,12 @@ class Voice():
         player.set_media(vlc.Media(url))
         player.play()
         time.sleep(0.5)
-        time.sleep(player.get_length()/1000)
+        while player.is_playing():
+            if keyboard.read_key() == "enter":
+                break
+            time.sleep(1)
+
+        player.stop()
 
     def hear(self) -> str:
         with self.mic as source:
@@ -47,3 +62,15 @@ class Voice():
         result = json.loads(self.recognizer.recognize_vosk(audio))
         logging.info(f"Heard: {result['text']}")
         return result['text']
+
+    def getUserConfirmation(self) -> bool:
+        while True:
+            user_input = self.hear()
+            if user_input in self.array_yes:
+                return True
+            elif user_input in self.array_no:
+                return False
+            else:
+                self.speak(
+                    "Sorry, either I didn't understand you or you didn't answer the question correctly."
+                )
