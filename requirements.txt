@@ -6,5 +6,10 @@ pyaudio
 SpeechRecognition
 vosk
 
+# Audioplayer
 python-vlc
 keyboard
+
+# FitBit
+cherrypy
+fitbit
