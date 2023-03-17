@@ -6,6 +6,7 @@ pyaudio
 SpeechRecognition
 vosk
 
+# Audioplayer
 python-vlc
 keyboard
 
@@ -14,3 +15,7 @@ spotipy
 requests
 re
 geocoder
+
+# FitBit
+cherrypy
+fitbit
