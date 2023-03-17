@@ -13,7 +13,6 @@ keyboard
 # UseCase3
 spotipy
 requests
-re
 geocoder
 
 # FitBit
