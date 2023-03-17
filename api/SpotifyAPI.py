@@ -1,3 +1,4 @@
+import logging
 import time
 import spotipy
 import spotipy.util as util
@@ -45,11 +46,11 @@ class SpotifyAPI():
                         device_id=None,
                         context_uri=f'spotify:playlist:{playlist_id}'
                     )
-                    print("Playing dining playlist...")
+                    logging.info("Playing dining playlist...")
                     playing = True
                 except SpotifyException:
-                    print("Open Spotify on your device and try again.")
+                    logging.info("Open Spotify on your device and try again.")
                     time.sleep(5)
                     self.__init__()
         else:
-            print("Can't get token for", self.USERNAME)
+            logging.Info("Can't get token for", self.USERNAME)

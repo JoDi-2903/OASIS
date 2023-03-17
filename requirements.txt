@@ -8,3 +8,9 @@ vosk
 
 python-vlc
 keyboard
+
+# UseCase3
+spotipy
+requests
+re
+geocoder

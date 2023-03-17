@@ -1,3 +1,4 @@
+import logging
 import webbrowser
 
 from usecases.UseCaseInterface import UseCaseInterface
@@ -17,7 +18,7 @@ class UseCase3(UseCaseInterface):
             is_chosen_recipe = False
             is_init = True
             # show recipes
-            print("Getting recipe...")
+            logging.info("Getting recipe...")
             while (not is_chosen_recipe):
                 recipe = SpoonacularAPI.getRecipeList()
                 if is_init:
@@ -80,7 +81,6 @@ class UseCase3(UseCaseInterface):
 
     def is_triggered(self) -> bool:
         answer = self.voice.hear()
-        print(answer)
         if ("it's lunchtime" in answer or
             "it's lunch time" in answer or
             "it's dinnertime" in answer or

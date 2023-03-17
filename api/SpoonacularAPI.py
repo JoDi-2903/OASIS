@@ -10,9 +10,6 @@ class Recipe:
 
 
 class SpoonacularAPI():
-    def __init__(self):
-        pass
-
     def getRecipeList():
         payload = {
             'fillIngredients': False,
