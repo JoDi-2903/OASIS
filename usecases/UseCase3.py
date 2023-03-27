@@ -5,11 +5,13 @@ from usecases.UseCaseInterface import UseCaseInterface
 from api.SpoonacularAPI import SpoonacularAPI
 from api.SpotifyAPI import SpotifyAPI
 from api.TripAdvisorAPI import TripAdvisorAPI, get_directions
+from utils import Config, Voice
 
 
 class UseCase3(UseCaseInterface):
-    def __init__(self, voice):
+    def __init__(self, voice: Voice, config: Config):
         self.voice = voice
+        self.config = config
 
     def run(self) -> None:
         self.voice.speak("Do you want to cook today?")
