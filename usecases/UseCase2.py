@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from usecases.UseCaseInterface import UseCaseInterface
 from api.YogaApi import YogaApi
 from api.ZenQuotes import ZenQuotes
