@@ -212,6 +212,29 @@ def test_recommend_random_movie_overview():
 
 
 # API - TheCocktailDB
+def test_recommend_random_cocktail_alcoholic_strDrink():
+   random_cocktail = TheCocktailDB.recommend_random_cocktail(True)
+   assert random_cocktail['strDrink'] != ""
+
+def test_recommend_random_cocktail_alcoholic_ingredient_str():
+   random_cocktail = TheCocktailDB.recommend_random_cocktail(True)
+   assert random_cocktail['ingredient_str'] != ""
+
+def test_recommend_random_cocktail_alcoholic_strInstructions():
+   random_cocktail = TheCocktailDB.recommend_random_cocktail(True)
+   assert random_cocktail['strInstructions'] != ""
+
+def test_recommend_random_cocktail_non_alcoholic_strDrink():
+   random_cocktail = TheCocktailDB.recommend_random_cocktail(False)
+   assert random_cocktail['strDrink'] != ""
+
+def test_recommend_random_cocktail_non_alcoholic_ingredient_str():
+   random_cocktail = TheCocktailDB.recommend_random_cocktail(False)
+   assert random_cocktail['ingredient_str'] != ""
+
+def test_recommend_random_cocktail_non_alcoholic_strInstructions():
+   random_cocktail = TheCocktailDB.recommend_random_cocktail(False)
+   assert random_cocktail['strInstructions'] != ""
 
 
 # UseCase4 - isTriggered()
