@@ -196,15 +196,15 @@ def test_recommend_random_movie_title():
 
 def test_recommend_random_movie_release_date():
    random_movie = TMDB.recommend_random_movie(12)
-   assert random_movie['release_date'][:4] != ""
+   assert validators.between(int(random_movie['release_date'][:4]), min=1750, max=2050)
 
 def test_recommend_random_movie_vote_average():
    random_movie = TMDB.recommend_random_movie(16)
-   assert random_movie['vote_average'] != ""
+   assert validators.between(float(random_movie['vote_average']), min=0.0, max=10.0)
 
 def test_recommend_random_movie_vote_count():
    random_movie = TMDB.recommend_random_movie(35)
-   assert random_movie['vote_count'] != ""
+   assert validators.between(int(random_movie['vote_count']), min=0)
 
 def test_recommend_random_movie_overview():
    random_movie = TMDB.recommend_random_movie(80)
@@ -239,7 +239,7 @@ def test_recommend_random_cocktail_non_alcoholic_strInstructions():
 
 # UseCase4 - isTriggered()
 def test_trigger4():
-   trigger_4 = UseCase4.is_triggered()
+   trigger_4 = UseCase4.is_triggered(UseCase4)
    trigger_test = False 
    if datetime.now().strftime("%H:%M") == "20:00": trigger_test = True
    assert trigger_test == trigger_4
