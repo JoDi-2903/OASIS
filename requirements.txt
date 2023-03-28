@@ -18,3 +18,7 @@ geocoder
 # FitBit
 cherrypy
 fitbit
+
+#pytest
+pytest
+validators
