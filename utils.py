@@ -23,7 +23,7 @@ class Voice():
 
         self.engine = pyttsx3.init()
         self.engine.setProperty(
-            'voice', 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Speech\Voices\Tokens\TTS_MS_EN-GB_HAZEL_11.0'
+            'voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-GB_HAZEL_11.0'
         )
 
         self.recognizer = sr.Recognizer()
@@ -128,7 +128,7 @@ class Config():
         self.save()
 
     def get(self, key) -> any:
-        """Get a value from a key. If key is not set None is returned.
+        """Get a value from a key. If key is not set KeyError is returned.
 
         Parameter
         --
