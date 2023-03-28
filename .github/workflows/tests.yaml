@@ -13,6 +13,8 @@ jobs:
               with:
                   python-version: "3.10"
             - name: Install dependecies
-              run: pip install -r requirements.txt
+              run: |
+                  apt install portaudio19-dev
+                  pip install -r requirements.txt
             - name: Run test with pytest
               run: python -m pytest
