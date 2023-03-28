@@ -3,11 +3,13 @@ from api.Tagesschau import Tagesschau
 from api.TMDB import TMDB
 from api.TheCocktailDB import TheCocktailDB
 from datetime import datetime
+from utils import Config, Voice
 
 
 class UseCase4(UseCaseInterface):
-    def __init__(self, voice):
+    def __init__(self, voice: Voice, config: Config):
         self.voice = voice
+        self.config = config
 
     def run(self) -> None:
         # 01 News Report
