@@ -82,7 +82,6 @@ class UseCase3(UseCaseInterface):
                     "You are way to picky today. I guess you'll just starve. Goodbye.")
 
     def is_triggered(self) -> bool:
-        return True
         answer = self.voice.hear()
         if ("it's lunchtime" in answer or
             "it's lunch time" in answer or
