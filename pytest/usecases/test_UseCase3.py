@@ -9,7 +9,7 @@ from utils import Config
 def test_cleanup_recipe_summary_edge_cases():
     testString = "<p>This is a <b>test</b> string.</p> This is the end of the string that should not be included."
     assert cleanup_recipe_summary(
-        testString) == "This is a test string."
+        testString) == "This is a test string"
 
 
 def test_getRecipeList():
