@@ -16,23 +16,6 @@ class SpotifyAPI():
     SCOPE = 'user-modify-playback-state'
 
     def __init__(self, config):
-        # auth_manager = SpotifyOAuth(
-        #     self.CLIENT_ID,
-        #     self.CLIENT_SECRET,
-        #     self.REDIRECT_URI,
-        #     scope=self.SCOPE,
-        #     # username=self.USERNAME
-        # )
-        # self.sp = spotipy.Spotify(auth_manager=auth_manager)
-
-        # handler = CacheFileHandler(username=self.USERNAME)
-        # auth_manager = SpotifyOAuth(
-        #     self.CLIENT_ID,
-        #     self.CLIENT_SECRET,
-        #     self.REDIRECT_URI,
-        #     cache_handler=handler
-        # )
-        # self.sp = spotipy.Spotify(auth_manager=auth_manager)
         self.sp = self.connectToSpotify()
         self.config = config
 
