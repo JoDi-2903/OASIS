@@ -47,7 +47,7 @@ class UseCase3(UseCaseInterface):
             self.voice.speak("Do you want to listen to music while cooking?")
             if self.voice.getUserConfirmation():
                 # play spotify playlist
-                spotify = SpotifyAPI()
+                spotify = SpotifyAPI(self.config)
                 spotify.playDiningPlaylist()
         else:
             # show restaurants
@@ -82,6 +82,7 @@ class UseCase3(UseCaseInterface):
                     "You are way to picky today. I guess you'll just starve. Goodbye.")
 
     def is_triggered(self) -> bool:
+        return True
         answer = self.voice.hear()
         if ("it's lunchtime" in answer or
             "it's lunch time" in answer or
