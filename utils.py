@@ -22,9 +22,10 @@ class Voice():
         ]
 
         self.engine = pyttsx3.init()
-        self.engine.setProperty(
-            'voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-GB_HAZEL_11.0'
-        )
+        if os.system == 'nt':
+            self.engine.setProperty(
+                'voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-GB_HAZEL_11.0'
+            )
 
         self.recognizer = sr.Recognizer()
         self.mic = sr.Microphone()
