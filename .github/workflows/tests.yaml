@@ -6,6 +6,8 @@ jobs:
     test:
         name: Setup and run python tests
         runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
         steps:
             - uses: actions/checkout@v3
             - name: Setup Python
