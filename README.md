@@ -4,7 +4,7 @@
 
 ### Requirements
 
-For linux you habe to install additional packages
+For linux you have to install additional packages
 
 ```bash
 sudo apt install portaudio19-dev espeak ffmpeg libespeak1
@@ -41,4 +41,4 @@ coverage report
 
 ## SpechRecognition Model
 
-We are using the "vosk-model-small-en-us-0.15" modell for the recognizion of speech. The model is licensed under the Apache 2.0 license.
+We are using the "vosk-model-small-en-us-0.15" modell for the recognition of speech. The model is licensed under the Apache 2.0 license.
