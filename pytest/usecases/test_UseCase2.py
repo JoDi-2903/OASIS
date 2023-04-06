@@ -4,9 +4,7 @@ from api.YogaApi import YogaApi
 from api.ZenQuotes import ZenQuotes
 from usecases.UseCase2 import UseCase2 
 
-#test FitbitAPI
-# def test_fitbit():
-
+# --- test FitbitAPI ---
 
 # --- test YogaApi ---
 def test_yoga_api_random_exercise_english_name():
