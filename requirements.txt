@@ -18,6 +18,7 @@ geocoder
 # FitBit
 cherrypy
 fitbit
+pandas
 
 #pytest
 pytest
