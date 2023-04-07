@@ -26,6 +26,7 @@ class TMDB():
         "war": 10752,
         "western": 37
     }
+
     # Definition of the watch_provider codes from TMDB
     watch_provider_codes = {
         "Amazon Prime Video": 9,
@@ -50,20 +51,25 @@ class TMDB():
         inverted_genre_codes = {v: k for k, v in TMDB.genre_codes.items()}
         return inverted_genre_codes[genre_id]
     
-    def watch_provider_to_id(config_watch_providers) -> set:
+    def watch_provider_to_id(watch_providers) -> str:
         watch_provider_codes = set()
         
-        for wp in config_watch_providers:
+        for wp in watch_providers:
             if wp in TMDB.watch_provider_codes:
                 watch_provider_codes.add(TMDB.watch_provider_codes[wp])
 
-        return watch_provider_codes
+        return '|'.join(watch_provider_codes)
 
-    def recommend_random_movie(genre_id) -> dict:
+    def recommend_random_movie(genre_id, watch_providers=[]) -> dict:
         random_page_number = random.randint(1, 100)
         random_element_number = random.randint(0, 19)
 
-        with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key=5221e1317dbf91f51363a72bc6c98904&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(genre_id)) as url:
+        if watch_providers != []:
+            watch_provider_params = "&with_watch_providers="+TMDB.watch_provider_to_id(watch_providers)+"&watch_region=DE&with_watch_monetization_types=flatrate"
+        else:
+            watch_provider_params = ""
+
+        with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key=5221e1317dbf91f51363a72bc6c98904&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(genre_id)+str(watch_provider_params)) as url:
             tmdb_data = json.load(url)
             random_movie = tmdb_data["results"][random_element_number]
 
