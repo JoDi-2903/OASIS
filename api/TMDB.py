@@ -26,6 +26,14 @@ class TMDB():
         "war": 10752,
         "western": 37
     }
+    # Definition of the watch_provider codes from TMDB
+    watch_provider_codes = {
+        "Amazon Prime Video": 9,
+        "Apple TV Plus": 350,
+        "Disney Plus": 337,
+        "Paramount Plus": 531,
+        "Netflix": 8
+    }
 
     def __init__(self):
         pass
@@ -41,6 +49,15 @@ class TMDB():
     def id_to_genre(genre_id) -> str:
         inverted_genre_codes = {v: k for k, v in TMDB.genre_codes.items()}
         return inverted_genre_codes[genre_id]
+    
+    def watch_provider_to_id(config_watch_providers) -> set:
+        watch_provider_codes = set()
+        
+        for wp in config_watch_providers:
+            if wp in TMDB.watch_provider_codes:
+                watch_provider_codes.add(TMDB.watch_provider_codes[wp])
+
+        return watch_provider_codes
 
     def recommend_random_movie(genre_id) -> dict:
         random_page_number = random.randint(1, 100)
