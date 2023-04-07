@@ -52,11 +52,11 @@ class TMDB():
         return inverted_genre_codes[genre_id]
     
     def watch_provider_to_id(watch_providers) -> str:
-        watch_provider_codes = set()
+        watch_provider_codes = []
         
         for wp in watch_providers:
             if wp in TMDB.watch_provider_codes:
-                watch_provider_codes.add(TMDB.watch_provider_codes[wp])
+                watch_provider_codes.append(str(TMDB.watch_provider_codes[wp]))
 
         return '|'.join(watch_provider_codes)
 

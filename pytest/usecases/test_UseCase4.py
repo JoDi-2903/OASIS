@@ -188,6 +188,18 @@ def test_id_to_genre_37():
    genre_string = TMDB.id_to_genre(37)
    assert genre_string == "western"
 
+# watch_provider_to_id()
+def test_watch_provider_to_id_1():
+   watch_provider_codes = TMDB.watch_provider_to_id(["Netflix"])
+   assert watch_provider_codes == "8"
+
+def test_watch_provider_to_id_2():
+   watch_provider_codes = TMDB.watch_provider_to_id(["Netflix", "Disney Plus"])
+   assert watch_provider_codes == "8|337"
+
+def test_watch_provider_to_id_5():
+   watch_provider_codes = TMDB.watch_provider_to_id(["Apple TV Plus", "Amazon Prime Video", "Paramount Plus", "Disney Plus", "Netflix"])
+   assert watch_provider_codes == "350|9|531|337|8"
 
 # recommend_random_movie()
 def test_recommend_random_movie_title():
@@ -209,6 +221,14 @@ def test_recommend_random_movie_vote_count():
 def test_recommend_random_movie_overview():
    random_movie = TMDB.recommend_random_movie(80)
    assert random_movie['overview'] != ""
+
+def test_recommend_random_movie_title_DP():
+   random_movie = TMDB.recommend_random_movie(28, ["Disney Plus"])
+   assert random_movie['title'] != ""
+
+def test_recommend_random_movie_title_N():
+   random_movie = TMDB.recommend_random_movie(28, ["Netflix"])
+   assert random_movie['title'] != ""
 
 
 # API - TheCocktailDB
