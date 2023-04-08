@@ -11,12 +11,12 @@ class UseCase4(UseCaseInterface):
         self.voice = voice
         self.config = config
 
-    def run(self) -> None:
+    def run(self, config) -> None:
         # 01 News Report
         # Wish a good evening and tell the current time
         current_time = datetime.now().strftime("%H:%M")
         self.voice.speak(
-            f"Good evening. It's {current_time} o'clock. Here is your news summary of the day."
+            f"Good evening, {config.get('name')}. It's {current_time} o'clock. Here is your news summary of the day."
         )
 
         # Play the user the news of the day
@@ -58,7 +58,7 @@ class UseCase4(UseCaseInterface):
             self.voice.speak(
                 f"As cocktail of the day I recommend {random_cocktail['strDrink']}. For this you need {random_cocktail['ingredient_str']}. Now to the preparation: {random_cocktail['strInstructions']}")
         else:
-            self.voice.speak("Okay. Have a great movie night.")
+            self.voice.speak(f"Okay. Have a great movie night, {config.get('name')}.")
 
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")

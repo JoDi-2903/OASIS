@@ -1,6 +1,7 @@
 import json
 import random
 import urllib.request
+from utils import Config
 
 
 class TMDB():
@@ -36,9 +37,6 @@ class TMDB():
         "Netflix": 8
     }
 
-    def __init__(self):
-        pass
-
     def genre_to_id(question_genre) -> int:
         # Detect genre from user input
         for gnr in TMDB.genre_codes:
@@ -60,16 +58,17 @@ class TMDB():
 
         return '|'.join(watch_provider_codes)
 
-    def recommend_random_movie(genre_id, watch_providers=[]) -> dict:
+    def recommend_random_movie(genre_id) -> dict:
         random_page_number = random.randint(1, 100)
         random_element_number = random.randint(0, 19)
 
+        watch_providers = Config.get(key="watch_providers")
         if watch_providers != []:
             watch_provider_params = "&with_watch_providers="+TMDB.watch_provider_to_id(watch_providers)+"&watch_region=DE&with_watch_monetization_types=flatrate"
         else:
             watch_provider_params = ""
 
-        with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key=5221e1317dbf91f51363a72bc6c98904&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(genre_id)+str(watch_provider_params)) as url:
+        with urllib.request.urlopen("https://api.themoviedb.org/3/discover/movie?api_key="+"5221e1317dbf91f51363a72bc6c98904"+"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page="+str(random_page_number)+"&with_genres="+str(genre_id)+str(watch_provider_params)) as url: #Config.get('TMDB_API_KEY')
             tmdb_data = json.load(url)
             random_movie = tmdb_data["results"][random_element_number]
 

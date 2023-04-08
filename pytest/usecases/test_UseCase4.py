@@ -222,15 +222,6 @@ def test_recommend_random_movie_overview():
    random_movie = TMDB.recommend_random_movie(80)
    assert random_movie['overview'] != ""
 
-def test_recommend_random_movie_title_DP():
-   random_movie = TMDB.recommend_random_movie(28, ["Disney Plus"])
-   assert random_movie['title'] != ""
-
-def test_recommend_random_movie_title_N():
-   random_movie = TMDB.recommend_random_movie(28, ["Netflix"])
-   assert random_movie['title'] != ""
-
-
 # API - TheCocktailDB
 def test_recommend_random_cocktail_alcoholic_strDrink():
    random_cocktail = TheCocktailDB.recommend_random_cocktail(True)
