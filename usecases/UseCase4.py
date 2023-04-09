@@ -37,8 +37,12 @@ class UseCase4(UseCaseInterface):
             question_genre = self.voice.hear()
             genre_id = TMDB.genre_to_id(question_genre)
 
-        # Give the user a movie recommendation
-        random_movie = TMDB.recommend_random_movie(genre_id)
+        # Read movie_providers from config file and give the user a movie recommendation
+        if config.get('watch_providers'):
+            random_movie = TMDB.recommend_random_movie_by_watch_provider(config.get('TMDB_API_KEY'), genre_id, config.get('watch_providers'))
+        else:
+            random_movie = TMDB.recommend_random_movie(config.get('TMDB_API_KEY'), genre_id)
+        
         self.voice.speak(
             f"Good choice! From the genre {TMDB.id_to_genre(genre_id)} I recommend you today the movie {random_movie['title']} released in {random_movie['release_date'][:4]}. The film currently has an average rating of {random_movie['vote_average']} with {random_movie['vote_count']} reviews. I will now give you a brief plot overview: {random_movie['overview']}"
         )

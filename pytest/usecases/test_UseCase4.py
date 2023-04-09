@@ -203,24 +203,37 @@ def test_watch_provider_to_id_5():
 
 # recommend_random_movie()
 def test_recommend_random_movie_title():
-   random_movie = TMDB.recommend_random_movie(28)
+   random_movie = TMDB.recommend_random_movie("5221e1317dbf91f51363a72bc6c98904", 28)
    assert random_movie['title'] != ""
 
 def test_recommend_random_movie_release_date():
-   random_movie = TMDB.recommend_random_movie(12)
+   random_movie = TMDB.recommend_random_movie("5221e1317dbf91f51363a72bc6c98904", 12)
    assert validators.between(int(random_movie['release_date'][:4]), min=1750, max=2050)
 
 def test_recommend_random_movie_vote_average():
-   random_movie = TMDB.recommend_random_movie(16)
+   random_movie = TMDB.recommend_random_movie("5221e1317dbf91f51363a72bc6c98904", 16)
    assert validators.between(float(random_movie['vote_average']), min=0.0, max=10.0)
 
 def test_recommend_random_movie_vote_count():
-   random_movie = TMDB.recommend_random_movie(35)
+   random_movie = TMDB.recommend_random_movie("5221e1317dbf91f51363a72bc6c98904", 35)
    assert validators.between(int(random_movie['vote_count']), min=0)
 
 def test_recommend_random_movie_overview():
-   random_movie = TMDB.recommend_random_movie(80)
+   random_movie = TMDB.recommend_random_movie("5221e1317dbf91f51363a72bc6c98904", 80)
    assert random_movie['overview'] != ""
+
+# recommend_random_movie_by_watch_provider()
+def test_recommend_random_movie_title_N():
+   random_movie = TMDB.recommend_random_movie_by_watch_provider("5221e1317dbf91f51363a72bc6c98904", 28, "Netflix")
+   assert random_movie['title'] != ""
+
+def test_recommend_random_movie_title_A():
+   random_movie = TMDB.recommend_random_movie_by_watch_provider("5221e1317dbf91f51363a72bc6c98904", 12, "Apple TV Plus")
+   assert random_movie['title'] != ""
+
+def test_recommend_random_movie_title_NDA():
+   random_movie = TMDB.recommend_random_movie_by_watch_provider("5221e1317dbf91f51363a72bc6c98904", 99, "Netflix, Disney Plus, Amazon Prime Video")
+   assert random_movie['title'] != ""
 
 # API - TheCocktailDB
 def test_recommend_random_cocktail_alcoholic_strDrink():
