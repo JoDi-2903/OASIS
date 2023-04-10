@@ -6,6 +6,9 @@ jobs:
     test:
         name: Setup and run python tests
         runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+            contents: read
         steps:
             - uses: actions/checkout@v3
             - name: Setup Python
@@ -14,7 +17,18 @@ jobs:
                   python-version: "3.10"
             - name: Install dependecies
               run: |
-                  sudo apt install portaudio19-dev
+                  sudo apt update && sudo apt install portaudio19-dev espeak ffmpeg libespeak1
                   pip install -r requirements.txt
             - name: Run test with pytest
-              run: python -m pytest
+              run: coverage run -m pytest
+            - name: Print results
+              run: coverage report
+            - name: Generate xml report
+              run: coverage xml
+            - name: Print coverage to pull request
+              uses: orgoro/coverage@v3
+              with:
+                  coverageFile: coverage.xml
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  thresholdAll: 0.8
+              if: github.event_name == 'pull_request'
