@@ -11,12 +11,12 @@ class UseCase4(UseCaseInterface):
         self.voice = voice
         self.config = config
 
-    def run(self, config) -> None:
+    def run(self) -> None:
         # 01 News Report
         # Wish a good evening and tell the current time
         current_time = datetime.now().strftime("%H:%M")
         self.voice.speak(
-            f"Good evening, {config.get('name')}. It's {current_time} o'clock. Here is your news summary of the day."
+            f"Good evening, {self.config.get('name')}. It's {current_time} o'clock. Here is your news summary of the day."
         )
 
         # Play the user the news of the day
@@ -38,10 +38,10 @@ class UseCase4(UseCaseInterface):
             genre_id = TMDB.genre_to_id(question_genre)
 
         # Read movie_providers from config file and give the user a movie recommendation
-        if config.get('watch_providers'):
-            random_movie = TMDB.recommend_random_movie_by_watch_provider(config.get('TMDB_API_KEY'), genre_id, config.get('watch_providers'))
+        if self.config.get('watch_providers'):
+            random_movie = TMDB.recommend_random_movie_by_watch_provider(self.config.get('TMDB_API_KEY'), genre_id, self.config.get('watch_providers'))
         else:
-            random_movie = TMDB.recommend_random_movie(config.get('TMDB_API_KEY'), genre_id)
+            random_movie = TMDB.recommend_random_movie(self.config.get('TMDB_API_KEY'), genre_id)
         
         self.voice.speak(
             f"Good choice! From the genre {TMDB.id_to_genre(genre_id)} I recommend you today the movie {random_movie['title']} released in {random_movie['release_date'][:4]}. The film currently has an average rating of {random_movie['vote_average']} with {random_movie['vote_count']} reviews. I will now give you a brief plot overview: {random_movie['overview']}"
@@ -62,11 +62,11 @@ class UseCase4(UseCaseInterface):
             self.voice.speak(
                 f"As cocktail of the day I recommend {random_cocktail['strDrink']}. For this you need {random_cocktail['ingredient_str']}. Now to the preparation: {random_cocktail['strInstructions']}")
         else:
-            self.voice.speak(f"Okay. Have a great movie night, {config.get('name')}.")
+            self.voice.speak(f"Okay. Have a great movie night, {self.config.get('name')}.")
 
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        if current_time == "20:00":
+        if current_time == self.config.get('starttime_usecase_4'):
             return True
         else:
             return False
