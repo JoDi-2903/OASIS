@@ -66,7 +66,7 @@ class UseCase4(UseCaseInterface):
 
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        if current_time == self.config.get('starttime_usecase_4'):
+        if current_time == "20:00":
             return True
         else:
             return False
