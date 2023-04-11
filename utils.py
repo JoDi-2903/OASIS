@@ -21,21 +21,28 @@ class Voice():
             'no', 'nope'
         ]
 
-        self.engine = pyttsx3.init()
-        self.engine.setProperty(
-            'voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-GB_HAZEL_11.0'
-        )
+        if os.name == 'nt':
+            self.engine = pyttsx3.init()
+            self.engine.setProperty(
+                'voice', 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\TTS_MS_EN-GB_HAZEL_11.0'
+            )
+        else:
+            self.engine = pyttsx3.init()
 
         self.recognizer = sr.Recognizer()
-        self.mic = sr.Microphone()
+        try:
+            self.mic = sr.Microphone()
 
-        with self.mic as source:
-            self.speak(
-                "First I need to calibrate your microphone. So please be quiet for the next 3 seconds."
-            )
-            # listen for 5 seconds and create the ambient noise energy level
-            self.recognizer.adjust_for_ambient_noise(source, duration=3)
-            self.recognizer.dynamic_energy_threshold = True
+            with self.mic as source:
+                self.speak(
+                    "First I need to calibrate your microphone. So please be quiet for the next 3 seconds."
+                )
+                # listen for 5 seconds and create the ambient noise energy level
+                self.recognizer.adjust_for_ambient_noise(source, duration=3)
+                self.recognizer.dynamic_energy_threshold = True
+        except OSError:
+            logging.error("No default microphone detected.")
+            raise OSError()
 
     def speak(self, msg):
         """Plays a text as a voice
@@ -62,7 +69,7 @@ class Voice():
         player = vlc.MediaPlayer()
         player.set_media(vlc.Media(url))
         player.play()
-        time.sleep(0.5)
+        time.sleep(2)
         while player.is_playing():
             if keyboard.read_key() == "enter":
                 break

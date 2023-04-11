@@ -103,10 +103,10 @@ def format_restaurant_description(description: str) -> str:
     temp_description = description.split('•')
     price_ranges = {
         '$$ - $$$ ': "medium expensive",
-        '$': "very cheap",
-        '$$': "cheap",
-        '$$$': "expensive",
         '$$$$': "very expensive",
+        '$$$': "expensive",
+        '$$': "cheap",
+        '$': "very cheap",
     }
     for key in price_ranges:
         if (temp_description[0].startswith(key)):

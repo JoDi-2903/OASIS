@@ -3,9 +3,6 @@ import urllib.request
 
 
 class Tagesschau():
-    def __init__(self):
-        pass
-
     def get_tagesschau_100_seconds_url() -> str:
         with urllib.request.urlopen("https://www.tagesschau.de/api/multimedia/video/ondemand100~_type-video.json") as url:
             news_data = json.load(url)

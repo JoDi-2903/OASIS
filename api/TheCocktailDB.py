@@ -4,9 +4,6 @@ import urllib.request
 
 
 class TheCocktailDB():
-    def __init__(self):
-        pass
-
     def recommend_random_cocktail(question_alcohol) -> dict:
         max_elements = 99 if question_alcohol else 57
         random_element_number = random.randint(0, max_elements)
