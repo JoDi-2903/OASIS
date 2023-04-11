@@ -19,12 +19,14 @@ jobs:
     test:
         name: Run Tests
         runs-on: ubuntu-latest
+        needs: setup
         steps:
             - name: Run test with pytest
               run: coverage run -m pytest
     report:
         name: Generate coverage report
         runs-on: ubuntu-latest
+        needs: [setup, test]
         permissions:
             pull-requests: write
             contents: read
