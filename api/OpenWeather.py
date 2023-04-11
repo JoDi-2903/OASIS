@@ -1,5 +1,5 @@
-import json
 import requests
+import os
 
 class OpenWeather():
 
@@ -7,7 +7,7 @@ class OpenWeather():
         pass
 
     def getWeatherData(lat, lon):        
-        url = "https://api.openweathermap.org/data/2.5/weather?lat=" +  str(lat) +"&lon=" + str(lon) +"&appid=4a4c9909084f86cec6007e0c8cb5880f"
+        url = "https://api.openweathermap.org/data/2.5/weather?lat=" +  str(lat) +"&lon=" + str(lon) +"&appid=" + os.getenv('WEATHER_API_KEY')
         response = requests.get(url).json()
         weatherInfo = response["weather"][0]["main"]
         currentTemp = int(response["main"]["temp"] - 273.15)

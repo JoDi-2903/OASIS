@@ -1,9 +1,10 @@
 import requests
+import os
 
 class Tankerkoenig():
 
     def getGasStationData(lat, lon, gasType) -> dict:
-        url = "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + str(lat)  + "&lng=" + str(lon)  +"&rad=2&sort=price&type=" + gasType +"&apikey=c831ea13-3104-5cbe-0896-950187d5bc0d"
+        url = "https://creativecommons.tankerkoenig.de/json/list.php?lat=" + str(lat)  + "&lng=" + str(lon)  +"&rad=2&sort=price&type=" + gasType +"&apikey=" + os.getenv('TANKERKOENIG_API_KEY')
         response = requests.get(url).json()
         lowest = None
         for station in response['stations']:

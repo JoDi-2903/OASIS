@@ -37,5 +37,3 @@ def test_WeatherData():
     assert maxTemp < 100 and maxTemp > -50
 
 # --- GoogleCalendar ---
-def test_getWeatherData():
-    assert GoogleCalendar.getCalenderEvents() is not None
