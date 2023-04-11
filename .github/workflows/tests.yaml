@@ -8,6 +8,8 @@ jobs:
         runs-on: ubuntu-latest
         env:
             TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+            TANKERKOENIG_API_KEY: ${{ secrets.TANKERKOENIG_API_KEY }}
+            WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         permissions:
             pull-requests: write
             contents: read
