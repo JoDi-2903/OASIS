@@ -1,4 +1,3 @@
-import validators
 from api.Tankerkoenig import Tankerkoenig
 from api.OpenWeather import OpenWeather
 from api.GoogleCalendar import GoogleCalendar
