@@ -14,7 +14,11 @@ class UseCase3(UseCaseInterface):
         self.config = config
 
     def run(self) -> None:
-        self.voice.speak("Do you want to cook today?")
+        # self.voice.speak("Do you want to cook today?")
+        spotify = SpotifyAPI(self.config)
+        spotify.playDiningPlaylist()
+
+        return
 
         if self.voice.getUserConfirmation():
             is_chosen_recipe = False
@@ -52,6 +56,8 @@ class UseCase3(UseCaseInterface):
         else:
             # show restaurants
             restaurants = TripAdvisorAPI.getRestaurantList()
+            if (len(restaurants) == 0):
+                asd
             is_init = True
             is_chosen_restaurant = False
 
@@ -82,6 +88,7 @@ class UseCase3(UseCaseInterface):
                     "You are way to picky today. I guess you'll just starve. Goodbye.")
 
     def is_triggered(self) -> bool:
+        return True
         answer = self.voice.hear()
         if ("it's lunchtime" in answer or
             "it's lunch time" in answer or

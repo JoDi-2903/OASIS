@@ -19,7 +19,7 @@ class TripAdvisorAPI():
     def __init__(self):
         pass
 
-    def getRestaurantList():
+    def getRestaurantList(config):
         conn = http.client.HTTPSConnection("travel-advisor.p.rapidapi.com")
         latitude, longitude = get_location()
         radius = 0.1
@@ -52,7 +52,7 @@ class TripAdvisorAPI():
 
         headers = {
             'content-type': "application/json",
-            'X-RapidAPI-Key': "419a62092amsh70be100a5b4e0f2p161fbfjsnb9d9a7cd6452",
+            'X-RapidAPI-Key': config.get("RAPIDAPI_KEY"),
             'X-RapidAPI-Host': "travel-advisor.p.rapidapi.com"
         }
 

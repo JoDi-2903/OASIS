@@ -1,7 +1,24 @@
+import os
+import pytest
+
+from spotipy.exceptions import SpotifyException
+
 from api.SpoonacularAPI import SpoonacularAPI, cleanup_recipe_summary, Recipe
 from api.TripAdvisorAPI import TripAdvisorAPI, get_directions, format_restaurant_description, get_location, Restaurant
 from api.SpotifyAPI import SpotifyAPI
 from utils import Config
+
+
+def get_usecase3_config():
+    config = Config()
+    config.set("diet", "")
+    config.set("playlist_id", "37i9dQZF1DXbm6HfkbMtFZ")
+    config.set("SPOTIFY_USERNAME", os.getenv("SPOTIFY_USERNAME"))
+    config.set("SPOTIFY_CLIENT_ID", os.getenv("SPOTIFY_CLIENT_ID"))
+    config.set("SPOTIFY_CLIENT_SECRET", os.getenv("SPOTIFY_CLIENT_SECRET"))
+    config.set("SPOONACULAR_KEY", os.getenv("SPOONACULAR_KEY"))
+    config.set("RAPIDAPI_KEY", os.getenv("RAPIDAPI_KEY"))
+    return config
 
 
 # --- TripAdvisorAPI ---
@@ -13,7 +30,7 @@ def test_cleanup_recipe_summary_edge_cases():
 
 
 def test_getRecipeList():
-    assert SpoonacularAPI.getRecipeList() is not None
+    assert SpoonacularAPI.getRecipeList(get_usecase3_config()) is not None
 
 
 def test_recipe_class():
@@ -26,10 +43,19 @@ def test_recipe_class():
 # --- SpotifyAPI ---
 
 def test_spotifyAuth():
-    config = Config()
-    spotify = SpotifyAPI(config)
+    spotify = SpotifyAPI(get_usecase3_config())
     token = spotify.connectToSpotify()
     assert token is not None
+
+
+def test_spotify_no_active_device():
+    with pytest.raises(SpotifyException) as exc_info:
+        spotify = SpotifyAPI(get_usecase3_config())
+        spotify.startPlayback()
+
+    assert exc_info.value.http_status == 404
+    assert "Player command failed: No active device found" in str(
+        exc_info.value)
 
 
 # --- TripAdvisorAPI ---
@@ -59,5 +85,5 @@ def test_format_restaurant_description_edge_cases():
 
 
 def test_getRestaurantList():
-    restaurantList = TripAdvisorAPI.getRestaurantList()
+    restaurantList = TripAdvisorAPI.getRestaurantList(get_usecase3_config())
     assert restaurantList is not None and len(restaurantList) > 0
