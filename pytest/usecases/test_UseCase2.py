@@ -71,9 +71,17 @@ def test_usecase2_get_fitness_exercise():
     exercise = UseCase2.get_fitness_exercise(UseCase2)
     assert exercise != ''
 
+def test_usecase2_get_fitness_exercise_len():
+    exercise = UseCase2.get_fitness_exercise(UseCase2)
+    assert len(exercise) > 20
+
 def test_usecase2_get_zen_quote():
     quote = UseCase2.get_zen_quote(UseCase2)
     assert quote != ''
+
+def test_usecase2_get_zen_quote_len():
+    quote = UseCase2.get_zen_quote(UseCase2)
+    assert len(quote) > 20
 
 def test_usecase2_convert_pounds_to_kg():
     pounds = 10
@@ -89,3 +97,14 @@ def test_usecase2_convert_pounds_to_kg_minus():
     pounds = -10
     kilo = UseCase2.convert_pounds_to_kg(UseCase2, pounds)
     assert kilo == -4.54
+
+def test_usecase2_convert_pounds_to_kg_float():
+    pounds = 1.5
+    kilo = UseCase2.convert_pounds_to_kg(UseCase2, pounds)
+    assert kilo == 0.68
+
+def test_usecase2_convert_pounds_to_kg_minus_float():
+    pounds = -1.5
+    kilo = UseCase2.convert_pounds_to_kg(UseCase2, pounds)
+    assert kilo == -0.68
+
