@@ -3,9 +3,11 @@ name: Run Python Tests
 on: [push, pull_request]
 
 jobs:
-    test:
-        name: Setup and run python tests
+    setup:
+        name: Run Python tests
         runs-on: ubuntu-latest
+        env:
+            TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         permissions:
             pull-requests: write
             contents: read
