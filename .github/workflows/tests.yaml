@@ -8,6 +8,11 @@ jobs:
         runs-on: ubuntu-latest
         env:
             TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+            SPOTIFY_USERNAME: ${{ secrets.SPOTIFY_USERNAME }}
+            SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+            SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+            SPOONACULAR_KEY: ${{ secrets.SPOONACULAR_KEY }}
+            RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
         permissions:
             pull-requests: write
             contents: read
