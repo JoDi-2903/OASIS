@@ -3,12 +3,9 @@ name: Run Python Tests
 on: [push, pull_request]
 
 jobs:
-    test:
+    setup:
         name: Setup and run python tests
         runs-on: ubuntu-latest
-        permissions:
-            pull-requests: write
-            contents: read
         steps:
             - uses: actions/checkout@v3
             - name: Setup Python
@@ -19,8 +16,19 @@ jobs:
               run: |
                   sudo apt update && sudo apt install portaudio19-dev espeak ffmpeg libespeak1
                   pip install -r requirements.txt
+    test:
+        name: Run Tests
+        runs-on: ubuntu-latest
+        steps:
             - name: Run test with pytest
               run: coverage run -m pytest
+    report:
+        name: Generate coverage report
+        runs-on: ubuntu-latest
+        permissions:
+            pull-requests: write
+            contents: read
+        steps:
             - name: Print results
               run: coverage report
             - name: Generate xml report
