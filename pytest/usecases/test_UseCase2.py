@@ -5,14 +5,6 @@ from api.YogaApi import YogaApi
 from api.ZenQuotes import ZenQuotes
 from usecases.UseCase2 import UseCase2 
 
-# --- test FitbitAPI ---
-# def test_fitbit_api_authorize():
-#     fitness_status = FitBitApi().get_health_status()
-#     print(fitness_status)
-#     assert fitness_status != ''
-
-
-
 # --- test YogaApi ---
 def test_yoga_api_random_exercise_english_name():
     exercise = YogaApi.get_random_yoga_exercise()
