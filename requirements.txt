@@ -6,8 +6,23 @@ pyaudio
 SpeechRecognition
 vosk
 
+# Audioplayer
 python-vlc
 keyboard
+
+# UseCase3
+spotipy
+requests
+geocoder
+
+# FitBit
+cherrypy
+fitbit
+
+#pytest
+pytest
+validators
+coverage
 
 # Google
 google-api-python-client 

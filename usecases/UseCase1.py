@@ -3,10 +3,12 @@ from datetime import datetime
 from api.Tankerkoenig import Tankerkoenig
 from api.OpenWeather import OpenWeather
 from api.GoogleCalendar import GoogleCalendar
+from utils import Config, Voice
 
 class UseCase1(UseCaseInterface):
-    def __init__(self, voice):
+    def __init__(self, voice: Voice, config: Config):
         self.voice = voice
+        self.config = config
 
     def run(self) -> None:
         current_time = datetime.now().strftime("%H:%M")
