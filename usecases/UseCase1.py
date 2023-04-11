@@ -26,7 +26,7 @@ class UseCase1(UseCaseInterface):
                 )
 
         # Open weather API
-        weatherInfo, currentTemp, minTemp, maxTemp = OpenWeather.getWeatherData()
+        weatherInfo, currentTemp, minTemp, maxTemp = OpenWeather.getWeatherData(48.7833056999332, 9.166720315342262)
         self.voice.speak(
             f"Now to the weather. The weather today is {weatherInfo} and the current temperature is {currentTemp}. The minimum temperature {minTemp} and the maximum temperature is {maxTemp}"
             )
@@ -36,12 +36,12 @@ class UseCase1(UseCaseInterface):
         self.voice.speak("All right. Do you want to know the cheapest gas station for today?")
         question_gastStation = self.voice.getUserConfirmation()
         if question_gastStation:            
-            gasStation = Tankerkoenig.getGasStationData()
+            gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5") 
             self.voice.speak(
                 f"The cheapest gas station around you is from {gasStation['brand']} and cost {gasStation['price']} euro. The adress is {gasStation['street']} {gasStation['houseNumber']} in {gasStation['place']}"
             )
 
-        
+        self.voice.speak("That was all. I wish you a nice morning")
         
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
