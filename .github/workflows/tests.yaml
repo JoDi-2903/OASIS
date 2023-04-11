@@ -13,6 +13,8 @@ jobs:
             SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
             SPOONACULAR_KEY: ${{ secrets.SPOONACULAR_KEY }}
             RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+            TANKERKOENIG_API_KEY: ${{ secrets.TANKERKOENIG_API_KEY }}
+            WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         permissions:
             pull-requests: write
             contents: read
