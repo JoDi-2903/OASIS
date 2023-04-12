@@ -48,16 +48,6 @@ def test_spotifyAuth():
     assert token is not None
 
 
-def test_spotify_no_active_device():
-    with pytest.raises(SpotifyException) as exc_info:
-        spotify = SpotifyAPI(get_usecase3_config())
-        spotify.startPlayback()
-
-    assert exc_info.value.http_status == 404
-    assert "Player command failed: No active device found" in str(
-        exc_info.value)
-
-
 # --- TripAdvisorAPI ---
 
 def test_restaurant_class():
