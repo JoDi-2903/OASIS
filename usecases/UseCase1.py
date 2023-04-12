@@ -21,17 +21,17 @@ class UseCase1(UseCaseInterface):
         if not events:
             self.voice.speak(
                 f"You don't have any events today"
-                )
+            )
         else:
             self.voice.speak(
                 f"You first event today is {events[0]['summary']}. It starts at { events[0]['start'].get('dateTime')} and ends at { events[0]['end'].get('dateTime')}"
-                )
+            )
 
         # Open weather API
         weatherInfo, currentTemp, minTemp, maxTemp = OpenWeather.getWeatherData(48.7833056999332, 9.166720315342262)
         self.voice.speak(
             f"Now to the weather. The weather today is {weatherInfo} and the current temperature is {currentTemp}. The minimum temperature {minTemp} and the maximum temperature is {maxTemp}"
-            )
+        )
         
 
         # Gas station recommendation
@@ -47,7 +47,6 @@ class UseCase1(UseCaseInterface):
         
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        return True
         if current_time == "08:00":
             return True
         else:

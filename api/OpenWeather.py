@@ -3,9 +3,6 @@ import os
 
 class OpenWeather():
 
-    def __init__(self):
-        pass
-
     def getWeatherData(lat, lon):        
         url = "https://api.openweathermap.org/data/2.5/weather?lat=" +  str(lat) +"&lon=" + str(lon) +"&appid=" + os.getenv('WEATHER_API_KEY')
         response = requests.get(url).json()

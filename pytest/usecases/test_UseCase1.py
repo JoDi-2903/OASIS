@@ -34,5 +34,3 @@ def test_WeatherData():
     assert minTemp < 100 and minTemp > -50
     assert currentTemp < 100 and currentTemp > -50
     assert maxTemp < 100 and maxTemp > -50
-
-# --- GoogleCalendar ---
