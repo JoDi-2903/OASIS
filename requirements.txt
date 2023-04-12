@@ -24,3 +24,8 @@ pytest
 validators
 coverage
 pytest-timeout
+
+# Google
+google-api-python-client 
+google-auth-httplib2 
+google-auth-oauthlib
