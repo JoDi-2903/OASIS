@@ -71,14 +71,18 @@ class TripAdvisorAPI():
             try:
                 if ('listSingleCardContent' in sections['sections'][section_index]):
                     temp_restaurant = sections['sections'][section_index]['listSingleCardContent']
-                    if temp_restaurant and 'cardTitle' in temp_restaurant and 'primaryInfo' in temp_restaurant:
+                    if (temp_restaurant and
+                        'cardTitle' in temp_restaurant and 'string' in temp_restaurant['cardTitle'] and
+                            'primaryInfo' in temp_restaurant and 'text' in temp_restaurant['primaryInfo']):
+
                         pin = sections['mapSections'][0]['pins'][pin_index]['geoPoint']
                         restaurants.append(
                             Restaurant(temp_restaurant['cardTitle']['string'], format_restaurant_description(temp_restaurant['primaryInfo']['text']), pin['latitude'], pin['longitude']))
                         pin_index += 1
-                section_index += 1
             except IndexError or TypeError:
                 break
+            finally:
+                section_index += 1
 
         if restaurants is None or (len(restaurants) == 0):
             restaurants.append(Restaurant("No restaurants found", "", 0, 0))
