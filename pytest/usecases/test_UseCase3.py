@@ -21,7 +21,7 @@ def get_usecase3_config():
     return config
 
 
-# --- TripAdvisorAPI ---
+# --- SpoonacularAPI ---
 
 def test_cleanup_recipe_summary_edge_cases():
     testString = "<p>This is a <b>test</b> string.</p> This is the end of the string that should not be included."
