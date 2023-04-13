@@ -68,13 +68,18 @@ class TripAdvisorAPI():
         pin_index = 0
 
         while (len(restaurants) < 10):
-            if ('listSingleCardContent' in sections['sections'][section_index]):
-                temp_restaurant = sections['sections'][section_index]['listSingleCardContent']
-                pin = sections['mapSections'][0]['pins'][pin_index]['geoPoint']
-                restaurants.append(
-                    Restaurant(temp_restaurant['cardTitle']['string'], format_restaurant_description(temp_restaurant['primaryInfo']['text']), pin['latitude'], pin['longitude']))
-                pin_index += 1
-            section_index += 1
+            try:
+                if ('listSingleCardContent' in sections['sections'][section_index]):
+                    if temp_restaurant and 'cardTitle' in temp_restaurant and 'primaryInfo' in temp_restaurant:
+                        temp_restaurant = sections['sections'][section_index]['listSingleCardContent']
+                        pin = sections['mapSections'][0]['pins'][pin_index]['geoPoint']
+                        restaurants.append(
+                            Restaurant(temp_restaurant['cardTitle']['string'], format_restaurant_description(temp_restaurant['primaryInfo']['text']), pin['latitude'], pin['longitude']))
+                        pin_index += 1
+            except IndexError:
+                break
+
+        section_index += 1
 
         return restaurants
 
