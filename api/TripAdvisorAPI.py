@@ -81,6 +81,9 @@ class TripAdvisorAPI():
 
         section_index += 1
 
+        if restaurants is None or (len(restaurants) == 0):
+            restaurants.append(Restaurant("No restaurants found", "", 0, 0))
+
         return restaurants
 
 
