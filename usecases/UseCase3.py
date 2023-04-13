@@ -52,6 +52,11 @@ class UseCase3(UseCaseInterface):
         else:
             # show restaurants
             restaurants = TripAdvisorAPI.getRestaurantList()
+            if (restaurants is None or len(restaurants) == 0):
+                self.voice.speak(
+                    "I'm sorry, I couldn't find any restaurants nearby.")
+                return
+
             is_init = True
             is_chosen_restaurant = False
 
