@@ -42,3 +42,21 @@ coverage report
 ## SpechRecognition Model
 
 We are using the "vosk-model-small-en-us-0.15" modell for the recognition of speech. The model is licensed under the Apache 2.0 license.
+
+
+## Config
+
+### Recipes
+
+Supported options for "diet" (please note that you can use multiple by seperating with ", "):
+- gluten free
+- ketogenic
+- vegetarian
+- lacto-vegetarian
+- ovo-vegetarian
+- vegan
+- pescetarian
+- paleo
+- primal
+- whole30
+

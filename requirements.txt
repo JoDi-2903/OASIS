@@ -23,6 +23,7 @@ fitbit
 pytest
 validators
 coverage
+pytest-timeout
 
 # Google
 google-api-python-client 

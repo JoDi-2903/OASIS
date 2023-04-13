@@ -10,16 +10,16 @@ class Recipe:
 
 
 class SpoonacularAPI():
-    def getRecipeList():
+    def getRecipeList(config):
         payload = {
             'fillIngredients': False,
             'limitLicense': False,
             # 'number': 1,
             # 'ranking': 1,
-            'tags': 'main course'
+            'tags': 'main course' + config.get("diet")
         }
 
-        api_key = "df9facedb801488cb9ddbef142853b21"
+        api_key = config.get("SPOONACULAR_KEY")
 
         headers = {
             'content-type': 'application/json',
@@ -27,8 +27,6 @@ class SpoonacularAPI():
             'X-Mashape-Host': 'mashape host'
         }
         endpoint = "https://api.spoonacular.com/recipes/random?apiKey=" + api_key
-
-        courses = ['main course', 'lunch', 'main dish']
 
         req = requests.get(endpoint, params=payload, headers=headers)
         recipe = req.json()['recipes'][0]
