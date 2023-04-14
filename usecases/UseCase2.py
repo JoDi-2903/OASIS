@@ -48,8 +48,8 @@ class UseCase2(UseCaseInterface):
             fitness_status['bodyweightgoal']['goal']['weight'])
         weight_goal_difference = weight - weight_goal
         return_string = "Your recent weight is " + str(weight) + ". "
-        return_string += " Your weight goal is  " + str(weight_goal) + ". "
-        return_string += " The difference between your goal and your weight is " + \
+        return_string += "Your weight goal is  " + str(weight_goal) + ". "
+        return_string += "The difference between your goal and your weight is " + \
             str(round(weight_goal_difference, 2)) + ". "
         return return_string
 
@@ -57,8 +57,8 @@ class UseCase2(UseCaseInterface):
         yoga_exercise = YogaApi.get_random_yoga_exercise()
         return_string = "Your daily Yoga exercise is " + \
             yoga_exercise['english_name'] + ". "
-        return_string += " The benefits are: " + \
-            yoga_exercise['pose_benefits'] + ". "
+        return_string += "The benefits are: " + \
+            yoga_exercise['pose_benefits'] + " "
         return_string += "The description: " + \
             yoga_exercise['pose_description']
         return return_string
