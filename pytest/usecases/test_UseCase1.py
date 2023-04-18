@@ -5,19 +5,19 @@ import os
 # --- Tankerkoenig ---
 
 def test_with_e5_gas():
-    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5", os.getenv('WEATHER_API_KEY'))   
+    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5", os.getenv('TANKERKOENIG_API_KEY'))   
     assert gasStation is not None
 
 def test_with_e10_gas():
-    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e10", os.getenv('WEATHER_API_KEY'))   
+    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e10", os.getenv('TANKERKOENIG_API_KEY'))   
     assert gasStation is not None
 
 def test_with_diesel_gas():
-    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "diesel", os.getenv('WEATHER_API_KEY'))   
+    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "diesel", os.getenv('TANKERKOENIG_API_KEY'))   
     assert gasStation is not None
 
 def test_all_station_fields_filled():
-    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5", os.getenv('WEATHER_API_KEY')) 
+    gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5", os.getenv('TANKERKOENIG_API_KEY')) 
     assert gasStation['brand'] != ''
     assert gasStation['price'] > 0
     assert gasStation['street'] != ''
