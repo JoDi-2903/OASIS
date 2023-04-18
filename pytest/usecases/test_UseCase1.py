@@ -22,6 +22,7 @@ def test_all_station_fields_filled():
     assert gasStation['price'] > 0
     assert gasStation['street'] != ''
     assert gasStation['place'] != ''
+    assert gasStation['houseNumber'] != None
 
 # --- OpenWeather ---
 def test_getWeatherData():
