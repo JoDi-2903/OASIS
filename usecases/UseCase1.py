@@ -4,6 +4,7 @@ from api.Tankerkoenig import Tankerkoenig
 from api.OpenWeather import OpenWeather
 from api.GoogleCalendar import GoogleCalendar
 from utils import Config, Voice
+from datetime import datetime
 
 class UseCase1(UseCaseInterface):
     def __init__(self, voice: Voice, config: Config):
@@ -24,21 +25,20 @@ class UseCase1(UseCaseInterface):
             )
         else:
             self.voice.speak(
-                f"You first event today is {events[0]['summary']}. It starts at { events[0]['start'].get('dateTime')} and ends at { events[0]['end'].get('dateTime')}"
+                f"You first event today is {events[0]['summary']}. It starts at { datetime.fromisoformat(events[0]['start'].get('dateTime')).strftime('%H:%M') } o'clock and ends at { datetime.fromisoformat(events[0]['end'].get('dateTime')).strftime('%H:%M')}"
             )
 
         # Open weather API
-        weatherInfo, currentTemp, minTemp, maxTemp = OpenWeather.getWeatherData(48.7833056999332, 9.166720315342262)
+        weatherInfo, currentTemp, minTemp, maxTemp = OpenWeather.getWeatherData(48.7833056999332, 9.166720315342262, self.config.get('WEATHER_API_KEY'))
         self.voice.speak(
             f"Now to the weather. The weather today is {weatherInfo} and the current temperature is {currentTemp}. The minimum temperature {minTemp} and the maximum temperature is {maxTemp}"
         )
         
-
         # Gas station recommendation
         self.voice.speak("All right. Do you want to know the cheapest gas station for today?")
         question_gastStation = self.voice.getUserConfirmation()
         if question_gastStation:            
-            gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5") 
+            gasStation = Tankerkoenig.getGasStationData(48.7833056999332, 9.166720315342262, "e5", self.config.get('TANKERKOENIG_API_KEY')) 
             self.voice.speak(
                 f"The cheapest gas station around you is from {gasStation['brand']} and cost {gasStation['price']} euro. The adress is {gasStation['street']} {gasStation['houseNumber']} in {gasStation['place']}"
             )
@@ -47,7 +47,7 @@ class UseCase1(UseCaseInterface):
         
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        if current_time == "08:00":
+        if current_time == "22:59":
             return True
         else:
             return False
