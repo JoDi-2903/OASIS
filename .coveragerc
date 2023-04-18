@@ -1,7 +1,7 @@
 [run]
-ommit = 
+omit = 
     api/gather_keys_oauth2.py
 
 [report]
-ommit = 
+omit = 
     api/gather_keys_oauth2.py
