@@ -41,7 +41,7 @@ class UseCase2(UseCaseInterface):
             return False
 
     def get_fitness_status(self) -> str:
-        fitness_status = FitBitApi().get_health_status()
+        fitness_status = FitBitApi(self.config.get('FITBIT_CLIENT_ID'), self.config.get('FITBIT_CLIENT_SECRET')).get_health_status()
         weight = self.convert_pounds_to_kg(
             fitness_status['bodyweight']['weight'][0]['weight'])
         weight_goal = self.convert_pounds_to_kg(

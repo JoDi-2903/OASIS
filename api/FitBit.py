@@ -2,15 +2,16 @@ import api.gather_keys_oauth2 as Oauth2
 import fitbit
 import datetime
 
-
-CLIENT_ID = '23QT56'
-CLIENT_SECRET = '05ddc878df29ec251ffa5e1801abe0c5'
-
 #   using modules: fitbit and cherrypy, installed by requirements.txt
 #   health information (https://dev.fitbit.com/build/reference/web-api/developer-guide/)
 class FitBitApi():
-    def __init__(self):
+    CLIENT_ID = ''
+    CLIENT_SECRET = ''
+
+    def __init__(self, CLIENT_ID, CLIENT_SECRET):
         self.authorize_with_api()
+        self.CLIENT_ID = CLIENT_ID
+        self.CLIENT_SECRET = CLIENT_SECRET
 
     def get_health_status(self) -> dict:
         date = datetime.date.today().strftime("%Y-%m-%d")
@@ -26,8 +27,8 @@ class FitBitApi():
         }
 
     def authorize_with_api(self):
-        server=Oauth2.OAuth2Server(CLIENT_ID, CLIENT_SECRET)
+        server=Oauth2.OAuth2Server(self.CLIENT_ID, self.CLIENT_SECRET)
         server.browser_authorize()
         ACCESS_TOKEN=str(server.fitbit.client.session.token['access_token'])
         REFRESH_TOKEN=str(server.fitbit.client.session.token['refresh_token'])
-        self.auth2_client=fitbit.Fitbit(CLIENT_ID,CLIENT_SECRET,oauth2=True,access_token=ACCESS_TOKEN,refresh_token=REFRESH_TOKEN)
+        self.auth2_client=fitbit.Fitbit(self.CLIENT_ID,self.CLIENT_SECRET,oauth2=True,access_token=ACCESS_TOKEN,refresh_token=REFRESH_TOKEN)
