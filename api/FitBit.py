@@ -9,9 +9,9 @@ class FitBitApi():
     CLIENT_SECRET = ''
 
     def __init__(self, CLIENT_ID, CLIENT_SECRET):
-        self.authorize_with_api()
         self.CLIENT_ID = CLIENT_ID
         self.CLIENT_SECRET = CLIENT_SECRET
+        self.authorize_with_api()
 
     def get_health_status(self) -> dict:
         date = datetime.date.today().strftime("%Y-%m-%d")
