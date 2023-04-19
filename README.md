@@ -43,6 +43,11 @@ coverage report
 
 We are using the "vosk-model-small-en-us-0.15" modell for the recognition of speech. The model is licensed under the Apache 2.0 license.
 
+## Google Calendar
+In order to use the google calendar, the email must first be activated in the OASIS project. 
+At the first start the email is requested in the browser. 
+If the login is successful, a token.json file with the tokens is created locally. 
+These have an expiration date and must be renewed after a time.
 
 ## Config
 
