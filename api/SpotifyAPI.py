@@ -24,7 +24,8 @@ class SpotifyAPI():
         playing = False
         while not playing:
             try:
-                self.startPlayback(self)
+                self.startPlayback()
+                playing = True
             except SpotifyException:
                 logging.info("Open Spotify on your device and try again.")
                 time.sleep(5)
@@ -48,4 +49,3 @@ class SpotifyAPI():
             context_uri=f'spotify:playlist:{self.playlist_id}'
         )
         logging.info("Playing dining playlist...")
-        playing = True
