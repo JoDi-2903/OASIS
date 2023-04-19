@@ -1,0 +1,7 @@
+[run]
+omit = 
+    api/gather_keys_oauth2.py
+
+[report]
+omit = 
+    api/gather_keys_oauth2.py

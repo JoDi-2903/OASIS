@@ -1,0 +1,43 @@
+name: Run Python Tests
+
+on: [push, pull_request]
+
+jobs:
+    setup:
+        name: Run Python tests
+        runs-on: ubuntu-latest
+        env:
+            TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+            SPOTIFY_USERNAME: ${{ secrets.SPOTIFY_USERNAME }}
+            SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+            SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+            SPOONACULAR_KEY: ${{ secrets.SPOONACULAR_KEY }}
+            RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+            TANKERKOENIG_API_KEY: ${{ secrets.TANKERKOENIG_API_KEY }}
+            WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+        permissions:
+            pull-requests: write
+            contents: read
+        steps:
+            - uses: actions/checkout@v3
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.10"
+            - name: Install dependecies
+              run: |
+                  sudo apt update && sudo apt install portaudio19-dev espeak ffmpeg libespeak1
+                  pip install -r requirements.txt
+            - name: Run test with pytest
+              run: coverage run -m pytest --timeout=300
+            - name: Print results
+              run: coverage report
+            - name: Generate xml report
+              run: coverage xml
+            - name: Print coverage to pull request
+              uses: orgoro/coverage@v3
+              with:
+                  coverageFile: coverage.xml
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  thresholdAll: 0.8
+              if: github.event_name == 'pull_request'

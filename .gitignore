@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Spotify
+.cache-diepoldstr
+
+# VSCode
+.vscode/
+
+# Config file
+config.json

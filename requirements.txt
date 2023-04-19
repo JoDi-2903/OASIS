@@ -1,0 +1,31 @@
+# TTS
+pyttsx3
+
+# STT
+pyaudio
+SpeechRecognition
+vosk
+
+# Audioplayer
+python-vlc
+keyboard
+
+# UseCase3
+spotipy
+requests
+geocoder
+
+# FitBit
+cherrypy
+fitbit
+
+#pytest
+pytest
+validators
+coverage
+pytest-timeout
+
+# Google
+google-api-python-client 
+google-auth-httplib2 
+google-auth-oauthlib
