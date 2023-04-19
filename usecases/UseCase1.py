@@ -13,6 +13,7 @@ class UseCase1(UseCaseInterface):
 
     def run(self) -> None:
         current_time = datetime.now().strftime("%H:%M")
+        current_date = datetime.now().strftime("%Y:%m:%d")
         self.voice.speak(
             f"Good morning. It's {current_time} o'clock and it's time to wake up."
         )
@@ -24,9 +25,15 @@ class UseCase1(UseCaseInterface):
                 f"You don't have any events today"
             )
         else:
-            self.voice.speak(
-                f"You first event today is {events[0]['summary']}. It starts at { datetime.fromisoformat(events[0]['start'].get('dateTime')).strftime('%H:%M') } o'clock and ends at { datetime.fromisoformat(events[0]['end'].get('dateTime')).strftime('%H:%M')}"
-            )
+            if(datetime.fromisoformat(events[0]['start'].get('dateTime')).strftime('%Y:%m:%d') == current_date):
+              self.voice.speak(
+                    f"You first event today is {events[0]['summary']}. It starts at { datetime.fromisoformat(events[0]['start'].get('dateTime')).strftime('%H:%M') } o'clock and ends at { datetime.fromisoformat(events[0]['end'].get('dateTime')).strftime('%H:%M')}"
+                )  
+            else:
+                self.voice.speak(
+                f"You don't have any events today"
+                )
+                
 
         # Open weather API
         weatherInfo, currentTemp, minTemp, maxTemp = OpenWeather.getWeatherData(48.7833056999332, 9.166720315342262, self.config.get('WEATHER_API_KEY'))
@@ -47,7 +54,7 @@ class UseCase1(UseCaseInterface):
         
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        if current_time == "22:59":
+        if current_time == self.config.get('morning_routine'):
             return True
         else:
             return False
