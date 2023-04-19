@@ -22,7 +22,7 @@ class UseCase3(UseCaseInterface):
             # show recipes
             logging.info("Getting recipe...")
             while (not is_chosen_recipe):
-                recipe = SpoonacularAPI.getRecipeList()
+                recipe = SpoonacularAPI.getRecipeList(self.config)
                 if is_init:
                     temp_promt = "Here is a recipe I found"
                     is_init = False
@@ -39,19 +39,16 @@ class UseCase3(UseCaseInterface):
                 if self.voice.getUserConfirmation():
                     is_chosen_recipe = True
 
-            self.voice.speak(
-                "Do you want me to open the recipe in your browser?")
-            if self.voice.getUserConfirmation():
-                webbrowser.open_new_tab(recipe.link)
+            webbrowser.open_new_tab(recipe.link)
 
-            self.voice.speak("Do you want to listen to music while cooking?")
-            if self.voice.getUserConfirmation():
-                # play spotify playlist
-                spotify = SpotifyAPI(self.config)
-                spotify.playDiningPlaylist()
+            # play spotify playlist
+            spotify = SpotifyAPI(self.config)
+            spotify.playDiningPlaylist()
+
+            self.voice.speak("Enjoy cooking!")
         else:
             # show restaurants
-            restaurants = TripAdvisorAPI.getRestaurantList()
+            restaurants = TripAdvisorAPI.getRestaurantList(self.config)
             if (len(restaurants) == 1 and restaurants[0].name == "No restaurants found"):
                 self.voice.speak(
                     "I'm sorry, I couldn't find any restaurants nearby.")
@@ -70,7 +67,7 @@ class UseCase3(UseCaseInterface):
                                  ". Do you want to hear the description?")
                 if self.voice.getUserConfirmation():
                     self.voice.speak(
-                        "Okay, here is the description." + restaurant.description)
+                        "Okay, here is the description. " + restaurant.description)
 
                 self.voice.speak("Do you want to go to this restaurant?")
                 if self.voice.getUserConfirmation():
@@ -78,10 +75,7 @@ class UseCase3(UseCaseInterface):
                     break
 
             if (is_chosen_restaurant):
-                self.voice.speak(
-                    "Do you want me to open the restaurant directions in your browser?")
-                if self.voice.getUserConfirmation():
-                    webbrowser.open_new_tab(get_directions(restaurants[0]))
+                webbrowser.open_new_tab(get_directions(restaurants[0]))
             else:
                 self.voice.speak(
                     "You are way to picky today. I guess you'll just starve. Goodbye.")

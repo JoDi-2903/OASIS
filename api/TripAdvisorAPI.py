@@ -91,13 +91,11 @@ class TripAdvisorAPI():
 
 
 def get_directions(restaurant: Restaurant) -> str:
-    starting_lat, starting_lng = get_location()
-
     ending_lat = restaurant.latitude
     ending_lng = restaurant.longitude
 
     # Format the URL with the coordinates
-    return f'https://www.google.com/maps/dir/{starting_lat},{starting_lng}/{ending_lat},{ending_lng}/'
+    return f'https://www.google.com/maps/dir/My+Location/{ending_lat},{ending_lng}/'
 
 
 def get_location():
