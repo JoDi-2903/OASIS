@@ -2,6 +2,7 @@ from usecases.UseCaseInterface import UseCaseInterface
 from api.Tagesschau import Tagesschau
 from api.TMDB import TMDB
 from api.TheCocktailDB import TheCocktailDB
+from api.GoogleCalendar import GoogleCalendar
 from datetime import datetime
 from utils import Config, Voice
 
@@ -66,7 +67,7 @@ class UseCase4(UseCaseInterface):
 
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        if current_time == "20:00":
+        if current_time == "20:00" and not GoogleCalendar.has_appointment():
             return True
         else:
             return False

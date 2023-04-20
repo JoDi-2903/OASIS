@@ -3,6 +3,7 @@ from usecases.UseCaseInterface import UseCaseInterface
 from api.YogaApi import YogaApi
 from api.ZenQuotes import ZenQuotes
 from api.FitBit import FitBitApi
+from api.GoogleCalendar import GoogleCalendar
 from utils import Config, Voice
 # Use case for midday health routine, containing:
 #   Inspirational quote (https://docs.zenquotes.io/zenquotes-documentation/#call-today)
@@ -35,7 +36,7 @@ class UseCase2(UseCaseInterface):
 
     def is_triggered(self) -> bool:
         current_time = datetime.now().strftime("%H:%M")
-        if current_time == "15:00":
+        if current_time == "15:00" and not GoogleCalendar.has_appointment():
             return True
         else:
             return False
