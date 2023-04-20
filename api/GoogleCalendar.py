@@ -10,7 +10,7 @@ from googleapiclient.errors import HttpError
 
 class GoogleCalendar():
 
-    def getCalenderEvents():
+    def get_credentials():
         SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
         creds = None
@@ -29,8 +29,12 @@ class GoogleCalendar():
             # Save the credentials for the next run
             with open('token.json', 'w') as token:
                 token.write(creds.to_json())
+        
+        return creds
 
+    def getCalenderEvents():
         try:
+            creds = GoogleCalendar.get_credentials()
             service = build('calendar', 'v3', credentials=creds)
 
             # Call the Calendar API
@@ -44,3 +48,15 @@ class GoogleCalendar():
 
         except HttpError as error:
             logging.info(error)
+
+    def has_appointment() -> bool:
+        try:
+            creds = GoogleCalendar.get_credentials()
+            service = build('calendar', 'v3', credentials=creds)
+            now = datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+            events_result = service.events().list(calendarId='primary', timeMin=now, maxResults=1, singleEvents=True, orderBy='startTime').execute()
+            events = events_result.get('items', [])
+            return len(events) > 0
+        except HttpError as error:
+            logging.info(error)
+            return False
